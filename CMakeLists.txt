@@ -3,4 +3,8 @@ project(poose_1)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(poose_1 main.cpp)
+add_executable(
+  poose_1
+  main.cpp
+  include/container.hpp
+)
