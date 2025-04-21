@@ -4,7 +4,7 @@
 
 namespace containers::associative {
   template<typename Key, typename Value>
-  hashing_map<Key, Value>::hashing_map(
+  hashing_multi_map<Key, Value>::hashing_multi_map(
     const std::function<hash_t(const Key&)>& hash_function,
     const size_t& bucket_count
   ) : hash_function(hash_function) {
@@ -16,24 +16,17 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  hashing_map<Key, Value>::hashing_map(
+  hashing_multi_map<Key, Value>::hashing_multi_map(
     const std::function<hash_t(const Key&)>& hash_function
-  ) : hash_function(hash_function), buckets(std::vector(1, std::vector<std::tuple<Key, Value, hash_t>>())) {}
+  ) : hash_function(hash_function) {
 
-
-
-  template<typename Key, typename Value>
-  void hashing_map<Key, Value>::insert(const Key& key, const Value& value) {
-    // TODO
   }
 
-
   template<typename Key, typename Value>
-  typename hashing_map<Key, Value>::bucket_t hashing_map<Key, Value>::find_bucket_by_key(const Key& key) const {
+  typename hashing_multi_map<Key, Value>::bucket_t hashing_multi_map<Key, Value>::find_bucket_by_key(const Key& key) const {
     const auto hash = hash_function(key);
     const auto listIndex = hash % buckets.size();
     return buckets.at(listIndex);
   }
-
-  // TODO: Implementation hashing map
+  // TODO: Implementation hashing multi map
 }
