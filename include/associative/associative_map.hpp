@@ -81,8 +81,12 @@ namespace containers::associative {
     virtual ~ordered_multi_map() override = default;
   };
 
+  // TODO: Add documentation
   template<typename Key, typename Value>
   class hashing_map : public associative_map<Key, Value> {
+  public:
+    hashing_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
+    explicit hashing_map(const std::function<hash_t(const Key&)>& hash_function);
   private:
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
@@ -90,8 +94,12 @@ namespace containers::associative {
     size_t size = 0;
   };
 
+  // TODO: Add documentation
   template<typename Key, typename Value>
   class hashing_multi_map : public associative_map<Key, Value> {
+  public:
+    hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
+    explicit hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function);
   private:
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation

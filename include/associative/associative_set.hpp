@@ -75,6 +75,7 @@ namespace containers::associative {
     virtual ~ordered_multi_set() override = default;
   };
 
+  // TODO: Add documentation
   template<typename Key>
   class hashing_set : public associative_set<Key> {
   private:
@@ -84,6 +85,7 @@ namespace containers::associative {
     size_t size = 0;
   };
 
+  // TODO: Add documentation
   template<typename Key>
   class hashing_multi_set : public associative_multi_set<Key> {
     const std::function<hash_t(const Key&)> hash_function;
