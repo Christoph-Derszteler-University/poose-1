@@ -69,6 +69,7 @@ namespace containers::associative {
     virtual void remove(const Key& key, const Value& value) = 0;
   };
 
+
   template<typename Key, typename Value>
   class ordered_map : public associative_map<Key, Value> {
     // Adding a virtual destructor, because this class is not going to be implemented
@@ -80,6 +81,7 @@ namespace containers::associative {
     // Adding a virtual destructor, because this class is not going to be implemented
     virtual ~ordered_multi_map() override = default;
   };
+
 
   // TODO: Add documentation
   template<typename Key, typename Value>
@@ -98,10 +100,9 @@ namespace containers::associative {
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
-    size_t size = 0;
 
     bucket_t find_bucket_by_key(const Key& key) const;
-    void remap_buckets(const size_t& new_size);
+    void redistribute_buckets(const size_t& new_size);
     double calculate_load_factor() const;
   };
 
@@ -122,10 +123,9 @@ namespace containers::associative {
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
-    size_t size = 0;
 
     bucket_t find_bucket_by_key(const Key& key) const;
-    void remap_buckets(const size_t& new_size);
+    void redistribute_buckets(const size_t& new_size);
     double calculate_load_factor() const;
   };
 }
