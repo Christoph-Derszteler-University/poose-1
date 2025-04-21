@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include "../container.hpp"
 
 namespace containers::associative {
@@ -75,9 +77,18 @@ namespace containers::associative {
 
   template<typename Key>
   class hashing_set : public associative_set<Key> {
+  private:
+    const std::function<hash_t(const Key&)> hash_function;
+    // TODO: Replace with custom list implementation
+    std::vector<std::vector<std::pair<Key, hash_t>>> buckets;
+    size_t size = 0;
   };
 
   template<typename Key>
   class hashing_multi_set : public associative_multi_set<Key> {
+    const std::function<hash_t(const Key&)> hash_function;
+    // TODO: Replace with custom list implementation
+    std::vector<std::vector<std::pair<Key, hash_t>>> buckets;
+    size_t size = 0;
   };
 }

@@ -83,15 +83,19 @@ namespace containers::associative {
 
   template<typename Key, typename Value>
   class hashing_map : public associative_map<Key, Value> {
-  public:
-    using hash_t = int;
   private:
-    const std::function<hash_t(const Value&)> hash_function;
-    std::vector<std::vector<std::pair<Value, hash_t>>> buckets;
+    const std::function<hash_t(const Key&)> hash_function;
+    // TODO: Replace with custom list implementation
+    std::vector<std::vector<std::tuple<Key, Value, hash_t>>> buckets;
     size_t size = 0;
   };
 
   template<typename Key, typename Value>
   class hashing_multi_map : public associative_map<Key, Value> {
+  private:
+    const std::function<hash_t(const Key&)> hash_function;
+    // TODO: Replace with custom list implementation
+    std::vector<std::vector<std::tuple<Key, Value, hash_t>>> buckets;
+    size_t size = 0;
   };
 }

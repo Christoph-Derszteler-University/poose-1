@@ -3,6 +3,7 @@
 
 namespace containers {
   using size_t = std::size_t;
+  using hash_t = int;
 
   /**
    * @brief Abstract base class representing a generic container.
