@@ -23,7 +23,7 @@ namespace containers::associative {
        * @return True if the key exists, false otherwise.
        * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
        */
-    virtual const bool exists(const Key& key) = 0;
+    virtual bool exists(const Key& key) const = 0;
 
     /**
        * @brief Removes a key from the container.
@@ -52,7 +52,7 @@ namespace containers::associative {
        * @return True if the key exists at least once, false otherwise.
        * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
        */
-    virtual const bool exists(const Key& key) = 0;
+    virtual bool exists(const Key& key) const = 0;
 
     /**
        * @brief Removes a key from the container.

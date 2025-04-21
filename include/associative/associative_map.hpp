@@ -25,7 +25,7 @@ namespace containers::associative {
        * @return True if the key exists, false otherwise.
        * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
        */
-    virtual const bool exists(const Key& key) = 0;
+    virtual bool exists(const Key& key) const = 0;
 
     /**
        * @brief Removes a key and its associated value from the container.
@@ -57,7 +57,7 @@ namespace containers::associative {
        * @return True if the key-value pair exists, false otherwise.
        * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
        */
-    virtual const bool exists(const Key& key, const Value& value) = 0;
+    virtual bool exists(const Key& key, const Value& value) const = 0;
 
     /**
        * @brief Removes a specific key-value pair from the container.
@@ -87,23 +87,45 @@ namespace containers::associative {
   public:
     hashing_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hashing_map(const std::function<hash_t(const Key&)>& hash_function);
+
+    virtual void insert(const Key& key, const Value& value) override;
+    virtual bool exists(const Key& key) const override;
+    virtual void remove(const Key& key) override;
+
   private:
+    using bucket_t = std::vector<std::tuple<Key, Value, hash_t>>;
+
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
-    std::vector<std::vector<std::tuple<Key, Value, hash_t>>> buckets;
+    std::vector<bucket_t> buckets;
     size_t size = 0;
+
+    bucket_t find_bucket_by_key(const Key& key) const;
+    void remap_buckets(const size_t& new_size);
+    double calculate_load_factor() const;
   };
 
   // TODO: Add documentation
   template<typename Key, typename Value>
-  class hashing_multi_map : public associative_map<Key, Value> {
+  class hashing_multi_map : public associative_multi_map<Key, Value> {
   public:
     hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function);
+
+    virtual void insert(const Key& key, const Value& value) override;
+    virtual bool exists(const Key& key, const Value& value) const override;
+    virtual void remove(const Key& key, const Value& value) override;
+
   private:
+    using bucket_t = std::vector<std::tuple<Key, Value, hash_t>>;
+
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
-    std::vector<std::vector<std::tuple<Key, Value, hash_t>>> buckets;
+    std::vector<bucket_t> buckets;
     size_t size = 0;
+
+    bucket_t find_bucket_by_key(const Key& key) const;
+    void remap_buckets(const size_t& new_size);
+    double calculate_load_factor() const;
   };
 }
