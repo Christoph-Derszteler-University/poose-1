@@ -3,9 +3,9 @@
 
 namespace containers {
   template<typename Key, typename Value>
-  class associative_container : public container {
+  class associative_set : public container {
   public:
-    virtual ~associative_container() override = default;
+    virtual ~associative_set() override = default;
 
     /**
      * @brief Inserts a key-value pair into the container.
@@ -34,9 +34,9 @@ namespace containers {
   };
 
   template<typename Key, typename Value>
-  class associative_multi_container : public container {
+  class associative_multi_set : public container {
   public:
-    virtual ~associative_multi_container() override = default;
+    virtual ~associative_multi_set() override = default;
 
     /**
      * @brief Inserts a key-value pair into the container.
@@ -65,4 +65,22 @@ namespace containers {
      */
     virtual void remove(const Key& key, const Value& value) = 0;
   };
+
+  template<typename Key, typename Value>
+  class ordered_set : public associative_set<Key, Value> {
+    // Adding a virtual destructor, because this class is not going to be implemented
+    virtual ~ordered_set() override = default;
+  };
+
+  template<typename Key, typename Value>
+  class hashing_set : public associative_set<Key, Value> {};
+
+  template<typename Key, typename Value>
+  class ordered_multi_set : public associative_set<Key, Value> {
+    // Adding a virtual destructor, because this class is not going to be implemented
+    virtual ~ordered_multi_set() override = default;
+  };
+
+  template<typename Key, typename Value>
+  class hasing_multi_set : public associative_set<Key, Value> {};
 }
