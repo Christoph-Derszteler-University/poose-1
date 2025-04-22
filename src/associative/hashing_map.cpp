@@ -2,6 +2,7 @@
 #include "container.hpp"
 
 #include <cmath>
+#include <algorithm>
 
 namespace containers::associative {
   template<typename Key, typename Value>
