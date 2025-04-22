@@ -22,7 +22,6 @@ namespace containers::associative {
     const std::function<hash_t(const Key&)>& hash_function
   ) : hash_function(hash_function), buckets(std::vector(1, std::vector<std::tuple<Key, Value, hash_t>>())) {}
 
-  // TODO: Implement check that key does not exist already
   template<typename Key, typename Value>
   void hashing_map<Key, Value>::insert(const Key& key, const Value& value) {
     container::number_elements++;
@@ -31,7 +30,17 @@ namespace containers::associative {
     }
 
     auto& bucket = find_bucket_by_key(key);
-    bucket.push_back(std::make_tuple(key, value, hash_function(key)));
+    const auto exists = std::find_if(
+      bucket.begin(),
+      bucket.end(),
+      [&key](const std::tuple<Key, Value, hash_t>& value) {
+        return std::get<0>(value) == key;
+      }
+    );
+
+    if (exists == bucket.end()) {
+      bucket.push_back(std::make_tuple(key, value, hash_function(key)));
+    }
   }
 
   template<typename Key, typename Value>
