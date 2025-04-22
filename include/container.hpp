@@ -2,21 +2,21 @@
 #include <cstddef>
 
 namespace containers {
-using size_t = std::size_t;
-using hash_t = int;
-
-/**
- * @brief Abstract base class representing a generic container.
- */
-class container {
-public:
-  virtual ~container() = default;
+  using size_t = std::size_t;
+  using hash_t = int;
 
   /**
-   * @brief Returns the number of elements in the container.
-   * @return The size of the container.
-   * @note This method has a runtime complexity of O(1).
+   * @brief Abstract base class representing a generic container.
    */
-  virtual const size_t size() = 0;
-};
-} // namespace containers
+  class container {
+  public:
+    virtual ~container() = default;
+
+    /**
+     * @brief Returns the number of elements in the container.
+     * @return The size of the container.
+     * @note This method has a runtime complexity of O(1).
+     */
+    virtual const size_t size() = 0;
+  };
+}
