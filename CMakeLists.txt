@@ -14,4 +14,4 @@ add_link_options(-fsanitize=address)
 include_directories(include)
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*/*.cpp)
 
-add_executable(poose_1 main.cpp ${SRC_FILES})
+add_executable(poose_1 ${SRC_FILES})
