@@ -85,7 +85,7 @@ namespace containers::associative {
 
   // TODO: Add documentation
   template<typename Key, typename Value>
-  class hashing_map : public associative_map<Key, Value> {
+  class hashing_map final : public associative_map<Key, Value> {
   public:
     hashing_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hashing_map(const std::function<hash_t(const Key&)>& hash_function);
@@ -108,7 +108,7 @@ namespace containers::associative {
 
   // TODO: Add documentation
   template<typename Key, typename Value>
-  class hashing_multi_map : public associative_multi_map<Key, Value> {
+  class hashing_multi_map final : public associative_multi_map<Key, Value> {
   public:
     hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function);
