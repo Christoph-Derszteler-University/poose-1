@@ -3,23 +3,22 @@
 #include "../container.hpp"
 
 namespace containers::sequential {
-    template<typename Data>
+    template<typename T>
     class queue : public container {
     public:
-        
         virtual ~queue() override = default;
         
         /**
          * @brief Inserts a value at the end of the container
          * @param data The value to be stored
          */
-        virtual void enqueue(const Data& data) =0;
+        virtual void enqueue(const T& data) =0;
 
         /**
          * @brief Deletes & returns the value at front of the container
          * @return a value of Type data
          */
-        virtual data dequeue() = 0;
+        virtual T dequeue() = 0;
 
         /**
          * @brief Checks if the container is empty
