@@ -40,6 +40,9 @@
             packages = with pkgs; [
               nil
 
+              meteor-git
+              just
+
               git
               meld # recommended by uni
 
