@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../container.hpp"
+#include <container.hpp>
 #include "vector"
 #include "functional"
 
@@ -83,6 +83,7 @@ namespace containers::associative {
   };
 
 
+  // TODO: Rename to hash_map
   // TODO: Add documentation
   template<typename Key, typename Value>
   class hashing_map final : public associative_map<Key, Value> {
