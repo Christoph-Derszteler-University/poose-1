@@ -1,7 +1,9 @@
-#include <associative/associative_map.hpp>
-
 #include <cmath>
+#include <tuple>
 #include <algorithm>
+
+#include "associative/associative_map.hpp"
+
 
 namespace containers::associative {
   template<typename Key, typename Value>
@@ -44,29 +46,40 @@ namespace containers::associative {
 
   template<typename Key, typename Value>
   bool hashing_map<Key, Value>::exists(const Key& key) const {
-    const auto& bucket = find_bucket_by_key(key);
-    return std::find(bucket.begin(), bucket.end(), key) != bucket.end();
+    auto& bucket = find_bucket_by_key(key);
+    return std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+      return std::get<0>(other) == key;
+    }) != bucket.end();
   }
 
   template<typename Key, typename Value>
   void hashing_map<Key, Value>::remove(const Key& key) {
     auto& bucket = find_bucket_by_key(key);
-    const auto& initial_size = bucket.size();
-    std::erase_if(buckets, [&key](const auto& tuple) {
+    const auto initial_size = bucket.size();
+    std::erase_if(bucket, [&key](const auto& tuple) {
       return std::get<0>(tuple) == key;
     });
 
     container::number_elements -= initial_size - bucket.size();
     if (calculate_load_factor() <= 0.25) {
-      redistribute_buckets(std::max(buckets.size() / 2, 1));
+      redistribute_buckets(std::max(static_cast<int>(buckets.size() / 2), 1));
     }
   }
 
   template<typename Key, typename Value>
-  typename hashing_map<Key, Value>::bucket_t hashing_map<Key, Value>::find_bucket_by_key(const Key& key) const {
+  typename hashing_map<Key, Value>::bucket_t& hashing_map<Key, Value>::find_bucket_by_key(
+    const Key& key
+  ) {
     const auto hash = hash_function(key);
     const auto bucket_index = hash % buckets.size();
     return buckets.at(bucket_index);
+  }
+
+  template<typename Key, typename Value>
+  const typename hashing_map<Key, Value>::bucket_t& hashing_map<Key, Value>::find_bucket_by_key(
+    const Key& key
+    ) const {
+    return const_cast<hashing_map*>(this)->find_bucket_by_key(key);
   }
 
   template<typename Key, typename Value>
