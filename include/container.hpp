@@ -17,7 +17,7 @@ namespace containers {
      * @return The size of the container.
      * @note This method has a runtime complexity of O(1).
      */
-    size_t size() const;
+    [[nodiscard]] size_t size() const;
   protected:
     size_t number_elements = 0;
   };
