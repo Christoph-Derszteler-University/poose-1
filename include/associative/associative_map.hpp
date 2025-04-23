@@ -195,3 +195,6 @@ namespace containers::associative {
     [[nodiscard]] double calculate_load_factor() const;
   };
 }
+
+#include "inline/hash_map.tpp"
+#include "inline/hash_multi_map.tpp"

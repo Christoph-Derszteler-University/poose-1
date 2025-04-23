@@ -1,3 +1,5 @@
+#pragma once
+
 #include "associative/associative_map.hpp"
 
 #include <cmath>

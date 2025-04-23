@@ -166,3 +166,6 @@ namespace containers::associative {
     [[nodiscard]] double calculate_load_factor() const;
   };
 }
+
+#include "inline/hash_set.tpp"
+#include "inline/hash_multi_set.tpp"
