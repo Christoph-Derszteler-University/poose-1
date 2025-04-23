@@ -4,9 +4,6 @@
 #include <tuple>
 #include <algorithm>
 
-#include "../associative_set.hpp"
-
-
 namespace containers::associative {
   template<typename Key>
   hash_set<Key>::hash_set(

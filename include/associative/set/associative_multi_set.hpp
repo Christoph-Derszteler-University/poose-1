@@ -1,6 +1,5 @@
 #pragma once
 
-#include <functional>
 #include <container.hpp>
 
 namespace containers::associative {

@@ -1,7 +1,8 @@
 #pragma once
 
 #include <functional>
-#include <container.hpp>
+
+#include "associative_multi_set.hpp"
 
 namespace containers::associative {
   /**
@@ -51,4 +52,4 @@ namespace containers::associative {
   };
 }
 
-#include "../inline/hash_multi_set.tpp"
+#include "inline/hash_multi_set.tpp"
