@@ -4,8 +4,7 @@
 #include <tuple>
 #include <algorithm>
 
-#include "../associative_map.hpp"
-
+#include "hash_map.hpp"
 
 namespace containers::associative {
   template<typename Key, typename Value>

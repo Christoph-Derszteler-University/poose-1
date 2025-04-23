@@ -1,10 +1,6 @@
 #pragma once
 
-#include <vector>
-#include <functional>
-#include <optional>
-
-#include "container.hpp"
+#include "associative_map.hpp"
 
 namespace containers::associative {
   template<typename Key, typename Value>
