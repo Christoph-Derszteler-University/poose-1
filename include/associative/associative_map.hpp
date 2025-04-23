@@ -53,6 +53,14 @@ namespace containers::associative {
     virtual void insert(const Key& key, const Value& value) = 0;
 
     /**
+     * @brief Checks if any key-value with the specified key exists in the container.
+     * @param key The key to search for.
+     * @return True if one key-value pair exists, false otherwise.
+     * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
+     */
+    virtual bool exists_by_key(const Key& key) const = 0;
+
+    /**
      * @brief Checks if a specific key-value pair exists in the container.
      * @param key The key to search for.
      * @param value The value associated with the key to search for.
@@ -60,6 +68,14 @@ namespace containers::associative {
      * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
      */
     virtual bool exists(const Key& key, const Value& value) const = 0;
+
+    /**
+     * @brief Removes all key-value pairs associated with this key from the container.
+     * @param key The key to remove.
+     * @note If no key-value pair does not exist, the method has no effect.
+     * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
+     */
+    virtual void remove_by_key(const Key& key) = 0;
 
     /**
      * @brief Removes a specific key-value pair from the container.
@@ -118,7 +134,9 @@ namespace containers::associative {
     explicit hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function);
 
     virtual void insert(const Key& key, const Value& value) override;
+    virtual bool exists_by_key(const Key& key) const override;
     virtual bool exists(const Key& key, const Value& value) const override;
+    virtual void remove_by_key(const Key& key) override;
     virtual void remove(const Key& key, const Value& value) override;
 
   private:
