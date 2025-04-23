@@ -1,13 +1,12 @@
+#include "associative/associative_map.hpp"
+
 #include <cmath>
 #include <tuple>
 #include <algorithm>
 
-#include "associative/associative_map.hpp"
-
-
 namespace containers::associative {
   template<typename Key, typename Value>
-  hashing_map<Key, Value>::hashing_map(
+  hash_multi_map<Key, Value>::hash_multi_map(
     const std::function<hash_t(const Key&)>& hash_function,
     const size_t& bucket_count
   ) : hash_function(hash_function) {
@@ -19,42 +18,39 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  hashing_map<Key, Value>::hashing_map(
+  hash_multi_map<Key, Value>::hash_multi_map(
     const std::function<hash_t(const Key&)>& hash_function
   ) : hash_function(hash_function), buckets(std::vector(1, std::vector<std::tuple<Key, Value, hash_t>>())) {}
 
   template<typename Key, typename Value>
-  void hashing_map<Key, Value>::insert(const Key& key, const Value& value) {
+  void hash_multi_map<Key, Value>::insert(const Key& key, const Value& value) {
     container::number_elements++;
     if (calculate_load_factor() >= 0.75) {
       redistribute_buckets(buckets.size() * 2);
     }
 
     auto& bucket = find_bucket_by_key(key);
-    const auto exists = std::find_if(
-      bucket.begin(),
-      bucket.end(),
-      [&key](const std::tuple<Key, Value, hash_t>& value) {
-        return std::get<0>(value) == key;
-      }
-    );
-
-    if (exists == bucket.end()) {
-      bucket.push_back(std::make_tuple(key, value, hash_function(key)));
-    }
+    bucket.push_back(std::make_tuple(key, value, hash_function(key)));
   }
 
   template<typename Key, typename Value>
-  std::optional<Value> hashing_map<Key, Value>::find_by_key(const Key& key) const {
+  bool hash_multi_map<Key, Value>::exists_by_key(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    const auto it = std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+    return std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
       return std::get<0>(other) == key;
-    });
-    return it != bucket.end() ? std::optional{std::get<1>(*it)} : std::nullopt;
+    }) != bucket.end();
   }
 
   template<typename Key, typename Value>
-  void hashing_map<Key, Value>::remove(const Key& key) {
+  bool hash_multi_map<Key, Value>::exists(const Key& key, const Value& value) const {
+    auto& bucket = find_bucket_by_key(key);
+    return std::find_if(bucket.begin(), bucket.end(), [&key, &value](const auto& other) {
+      return std::get<0>(other) == key && std::get<1>(other) == value;
+    }) != bucket.end();
+  }
+
+  template<typename Key, typename Value>
+  void hash_multi_map<Key, Value>::remove_by_key(const Key& key) {
     auto& bucket = find_bucket_by_key(key);
     const auto initial_size = bucket.size();
     std::erase_if(bucket, [&key](const auto& tuple) {
@@ -68,7 +64,21 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  typename hashing_map<Key, Value>::bucket_t& hashing_map<Key, Value>::find_bucket_by_key(
+  void hash_multi_map<Key, Value>::remove(const Key& key, const Value& value) {
+    auto& bucket = find_bucket_by_key(key);
+    const auto initial_size = bucket.size();
+    std::erase_if(bucket, [&key, &value](const auto& tuple) {
+      return std::get<0>(tuple) == key && std::get<1>(tuple) == value;
+    });
+
+    container::number_elements -= initial_size - bucket.size();
+    if (calculate_load_factor() <= 0.25) {
+      redistribute_buckets(std::max(static_cast<int>(buckets.size() / 2), 1));
+    }
+  }
+
+  template<typename Key, typename Value>
+  typename hash_multi_map<Key, Value>::bucket_t& hash_multi_map<Key, Value>::find_bucket_by_key(
     const Key& key
   ) {
     const auto hash = hash_function(key);
@@ -77,20 +87,20 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  const typename hashing_map<Key, Value>::bucket_t& hashing_map<Key, Value>::find_bucket_by_key(
+  const typename hash_multi_map<Key, Value>::bucket_t& hash_multi_map<Key, Value>::find_bucket_by_key(
     const Key& key
     ) const {
-    return const_cast<hashing_map*>(this)->find_bucket_by_key(key);
+    return const_cast<hash_multi_map*>(this)->find_bucket_by_key(key);
   }
 
   template<typename Key, typename Value>
-  double hashing_map<Key, Value>::calculate_load_factor() const {
+  double hash_multi_map<Key, Value>::calculate_load_factor() const {
     return static_cast<double>(container::number_elements)
       / static_cast<double>(buckets.size());
   }
 
   template<typename Key, typename Value>
-  void hashing_map<Key, Value>::redistribute_buckets(const size_t& new_size) {
+  void hash_multi_map<Key, Value>::redistribute_buckets(const size_t& new_size) {
     bucket_t existing;
     for (const auto& bucket : buckets) {
       existing.insert(existing.end(), bucket.begin(), bucket.end());

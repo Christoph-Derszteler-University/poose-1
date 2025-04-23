@@ -104,10 +104,10 @@ namespace containers::associative {
   // TODO: Rename to hash_map
   // TODO: Add documentation
   template<typename Key, typename Value>
-  class hashing_map final : public associative_map<Key, Value> {
+  class hash_map final : public associative_map<Key, Value> {
   public:
-    hashing_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
-    explicit hashing_map(const std::function<hash_t(const Key&)>& hash_function);
+    hash_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
+    explicit hash_map(const std::function<hash_t(const Key&)>& hash_function);
 
     virtual void insert(const Key& key, const Value& value) override;
     virtual std::optional<Value> find_by_key(const Key& key) const override;
@@ -128,10 +128,10 @@ namespace containers::associative {
 
   // TODO: Add documentation
   template<typename Key, typename Value>
-  class hashing_multi_map final : public associative_multi_map<Key, Value> {
+  class hash_multi_map final : public associative_multi_map<Key, Value> {
   public:
-    hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
-    explicit hashing_multi_map(const std::function<hash_t(const Key&)>& hash_function);
+    hash_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
+    explicit hash_multi_map(const std::function<hash_t(const Key&)>& hash_function);
 
     virtual void insert(const Key& key, const Value& value) override;
     virtual bool exists_by_key(const Key& key) const override;
