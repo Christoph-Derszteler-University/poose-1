@@ -1,8 +1,9 @@
 #pragma once
 
-#include <container.hpp>
-#include "vector"
-#include "functional"
+#include <vector>
+#include <functional>
+
+#include "container.hpp"
 
 namespace containers::associative {
   template<typename Key, typename Value>
@@ -102,9 +103,10 @@ namespace containers::associative {
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
 
-    bucket_t find_bucket_by_key(const Key& key) const;
+    const bucket_t& find_bucket_by_key(const Key& key) const;
+    bucket_t& find_bucket_by_key(const Key& key);
     void redistribute_buckets(const size_t& new_size);
-    double calculate_load_factor() const;
+    [[nodiscard]] double calculate_load_factor() const;
   };
 
   // TODO: Add documentation
@@ -125,8 +127,9 @@ namespace containers::associative {
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
 
-    bucket_t find_bucket_by_key(const Key& key) const;
+    const bucket_t& find_bucket_by_key(const Key& key) const;
+    bucket_t& find_bucket_by_key(const Key& key);
     void redistribute_buckets(const size_t& new_size);
-    double calculate_load_factor() const;
+    [[nodiscard]] double calculate_load_factor() const;
   };
 }
