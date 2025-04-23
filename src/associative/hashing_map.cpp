@@ -45,11 +45,12 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  bool hashing_map<Key, Value>::exists(const Key& key) const {
+  std::optional<Value> hashing_map<Key, Value>::find_by_key(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    return std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+    const auto it = std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
       return std::get<0>(other) == key;
-    }) != bucket.end();
+    });
+    return it != bucket.end() ? std::optional{std::get<1>(*it)} : std::nullopt;
   }
 
   template<typename Key, typename Value>
