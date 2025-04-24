@@ -9,8 +9,16 @@ int main() {
   std::cout << "exists before inserting: " << exists_before.has_value() << std::endl;
 
   container.insert("test", "indeed");
+  container.insert("okay", "boomer");
   std::cout << "value after inserting: " << container.find_by_key("test").value();
   std::cout << " (Container size: " << container.size() << ")" << std::endl;
+
+  // Check twice
+  for (auto index = 0; index < 2; ++index) {
+    for (const auto& element : container) {
+      std::cout << "element in container (iterated): " << std::get<0>(element) << std::endl;
+    }
+  }
 
   container.remove("test");
   const auto exists_remove = container.find_by_key("test");
