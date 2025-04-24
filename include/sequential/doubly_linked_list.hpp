@@ -50,7 +50,7 @@ public:
    *
    * @return The number of elements.
    */
-  const size_t size();
+  const size_t size() override;
 
   /**
    * @brief Checks whether the list is empty.
