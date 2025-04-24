@@ -2,11 +2,10 @@
 
 #include <vector>
 #include <functional>
-#include <memory>
 #include <optional>
 
 #include "associative_map.hpp"
-#include "hash_iterator.hpp"
+#include "hash_map_iterator.hpp"
 
 namespace containers::associative {
   /**
@@ -45,10 +44,10 @@ namespace containers::associative {
     virtual std::optional<Value> find_by_key(const Key& key) const override;
     virtual void remove(const Key& key) override;
 
-    hash_iterator<bucket_t, Key, Value> begin();
-    hash_iterator<bucket_t, Key, Value> end();
-    hash_iterator<bucket_t, Key, Value> cbegin() const;
-    hash_iterator<bucket_t, Key, Value> cend() const;
+    hash_map_iterator<bucket_t, Key, Value> begin();
+    hash_map_iterator<bucket_t, Key, Value> end();
+    hash_map_iterator<bucket_t, Key, Value> cbegin() const;
+    hash_map_iterator<bucket_t, Key, Value> cend() const;
 
   private:
     const std::function<hash_t(const Key&)> hash_function;

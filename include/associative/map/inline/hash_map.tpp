@@ -105,24 +105,24 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::begin() {
-    const auto first_non_empty = hash_iterator<bucket_t, Key, Value>::calculate_next_non_empty_bucket_index(buckets, 0);
-    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+  hash_map_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::begin() {
+    const auto first_non_empty = hash_map_iterator<bucket_t, Key, Value>::calculate_next_non_empty_bucket_index(buckets, 0);
+    return hash_map_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
   }
 
   template<typename Key, typename Value>
-  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::end() {
-    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+  hash_map_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::end() {
+    return hash_map_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
   }
 
   template<typename Key, typename Value>
-  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::cbegin() const {
-    const auto first_non_empty = hash_iterator<bucket_t, Key, Value>::calculate_next_non_empty_bucket_index(buckets, 0);
-    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+  hash_map_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::cbegin() const {
+    const auto first_non_empty = hash_map_iterator<bucket_t, Key, Value>::calculate_next_non_empty_bucket_index(buckets, 0);
+    return hash_map_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
   }
 
   template<typename Key, typename Value>
-  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::cend() const {
-    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+  hash_map_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::cend() const {
+    return hash_map_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
   }
 }
