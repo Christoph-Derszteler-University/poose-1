@@ -79,3 +79,5 @@ public:
 };
 
 } // namespace containers::sequential
+
+#include <sequential/inline/linked_list.tpp>

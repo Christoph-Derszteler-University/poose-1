@@ -1,4 +1,4 @@
-#include "../src/sequential/linked_list.cpp"
+#include <sequential/linked_list.hpp>
 #include <iostream>
 
 int main() {
@@ -10,6 +10,7 @@ int main() {
   l.erase_after(head);
   auto tail = l.insert_after(head, 40);
 
-  std::cout << tail->data << std::endl;
-  return 0;
+  for (auto node = l.front(); node != nullptr; node = node->next) {
+    std::cout << node->data << " ";
+  }
 }

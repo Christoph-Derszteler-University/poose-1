@@ -1,5 +1,4 @@
 #include <memory>
-#include <sequential/linked_list.hpp>
 
 namespace containers::sequential {
 
