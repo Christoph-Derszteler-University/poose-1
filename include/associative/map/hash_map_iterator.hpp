@@ -51,4 +51,4 @@ namespace containers::associative {
   };
 }
 
-#include "inline/hash_iterator.tpp"
+#include "inline/hash_map_iterator.tpp"
