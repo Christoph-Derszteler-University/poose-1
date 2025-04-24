@@ -24,11 +24,6 @@ namespace containers::associative {
 
   template<typename Key>
   void hash_set<Key>::insert(const Key& key) {
-    container::number_elements++;
-    if (calculate_load_factor() >= 0.75) {
-      redistribute_buckets(buckets.size() * 2);
-    }
-
     auto& bucket = find_bucket_by_key(key);
     const auto exists = std::find_if(
       bucket.begin(),
@@ -40,6 +35,11 @@ namespace containers::associative {
 
     if (exists == bucket.end()) {
       bucket.push_back(std::make_pair(key, hash_function(key)));
+      container::number_elements++;
+    }
+
+    if (calculate_load_factor() >= 0.75) {
+      redistribute_buckets(buckets.size() * 2);
     }
   }
 

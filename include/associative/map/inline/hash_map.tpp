@@ -24,22 +24,22 @@ namespace containers::associative {
 
   template<typename Key, typename Value>
   void hash_map<Key, Value>::insert(const Key& key, const Value& value) {
-    container::number_elements++;
-    if (calculate_load_factor() >= 0.75) {
-      redistribute_buckets(buckets.size() * 2);
-    }
-
     auto& bucket = find_bucket_by_key(key);
     const auto exists = std::find_if(
       bucket.begin(),
       bucket.end(),
-      [&key](const std::tuple<Key, Value, hash_t>& value) {
-        return std::get<0>(value) == key;
+      [&key](const std::tuple<Key, Value, hash_t>& tuple) {
+        return std::get<0>(tuple) == key;
       }
     );
 
     if (exists == bucket.end()) {
       bucket.push_back(std::make_tuple(key, value, hash_function(key)));
+      container::number_elements++;
+    }
+
+    if (calculate_load_factor() >= 0.75) {
+      redistribute_buckets(buckets.size() * 2);
     }
   }
 

@@ -10,8 +10,9 @@ int main() {
 
   container.insert("test", "indeed");
   container.insert("okay", "boomer");
-  std::cout << "value after inserting: " << container.find_by_key("test").value();
-  std::cout << " (Container size: " << container.size() << ")" << std::endl;
+  container.insert("test", "lmao");
+  std::cout << "value after inserting: " << container.find_by_key("test").value()
+    << " (Container size: " << container.size() << ")" << std::endl;
 
   // Check twice
   for (auto index = 0; index < 2; ++index) {

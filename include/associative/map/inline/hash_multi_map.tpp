@@ -24,13 +24,13 @@ namespace containers::associative {
 
   template<typename Key, typename Value>
   void hash_multi_map<Key, Value>::insert(const Key& key, const Value& value) {
-    container::number_elements++;
+    auto& bucket = find_bucket_by_key(key);
+    bucket.push_back(std::make_tuple(key, value, hash_function(key)));
+
     if (calculate_load_factor() >= 0.75) {
       redistribute_buckets(buckets.size() * 2);
     }
-
-    auto& bucket = find_bucket_by_key(key);
-    bucket.push_back(std::make_tuple(key, value, hash_function(key)));
+    container::number_elements++;
   }
 
   template<typename Key, typename Value>

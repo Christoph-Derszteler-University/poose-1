@@ -12,6 +12,8 @@ namespace containers::associative {
   public:
     virtual ~associative_map() override = default;
 
+    // TODO: Documentation not inherited?
+
     /**
      * @brief Inserts a key-value pair into the container.
      * @param key The key to insert.
