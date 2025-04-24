@@ -12,3 +12,4 @@ include_directories(include)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/**/*.cpp)
 add_executable(poose_1 examples/main.cpp ${SRC_FILES})
+add_executable(doubly_linked_list examples/doubly_linked_list.cpp ${SRC_FILES})
