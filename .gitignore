@@ -1,3 +1,4 @@
+# Nix
 .direnv
 result
 
@@ -7,3 +8,6 @@ result
 # CMake
 cmake-build-debug
 build
+
+# clangd
+.cache
