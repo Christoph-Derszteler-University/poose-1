@@ -102,4 +102,26 @@ namespace containers::associative {
       buckets.at(bucket_index).push_back(pair);
     }
   }
+
+  template<typename Key>
+  hash_set_iterator<typename hash_set<Key>::bucket_t, Key> hash_set<Key>::begin() {
+    const auto first_non_empty = hash_set_iterator<bucket_t, Key>::calculate_next_non_empty_bucket_index(buckets, 0);
+    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+  }
+
+  template<typename Key>
+  hash_set_iterator<typename hash_set<Key>::bucket_t, Key> hash_set<Key>::end() {
+    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+  }
+
+  template<typename Key>
+  hash_set_iterator<typename hash_set<Key>::bucket_t, Key> hash_set<Key>::cbegin() const {
+    const auto first_non_empty = hash_set_iterator<bucket_t, Key>::calculate_next_non_empty_bucket_index(buckets, 0);
+    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+  }
+
+  template<typename Key>
+  hash_set_iterator<typename hash_set<Key>::bucket_t, Key> hash_set<Key>::cend() const {
+    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+  }
 }

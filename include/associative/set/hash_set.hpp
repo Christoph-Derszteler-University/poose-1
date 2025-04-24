@@ -3,6 +3,7 @@
 #include <functional>
 
 #include "associative_set.hpp"
+#include "hash_set_iterator.hpp"
 
 namespace containers::associative {
   /**
@@ -30,6 +31,9 @@ namespace containers::associative {
    */
   template<typename Key>
   class hash_set final : public associative_set<Key> {
+  protected:
+    using bucket_t = std::vector<std::pair<Key, hash_t>>;
+
   public:
     hash_set(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hash_set(const std::function<hash_t(const Key&)>& hash_function);
@@ -38,9 +42,12 @@ namespace containers::associative {
     virtual bool exists(const Key& key) const override;
     virtual void remove(const Key& key) override;
 
-  private:
-    using bucket_t = std::vector<std::pair<Key, hash_t>>;
+    hash_set_iterator<bucket_t, Key> begin();
+    hash_set_iterator<bucket_t, Key> end();
+    hash_set_iterator<bucket_t, Key> cbegin() const;
+    hash_set_iterator<bucket_t, Key> cend() const;
 
+  private:
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
