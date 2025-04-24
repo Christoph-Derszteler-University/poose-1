@@ -21,8 +21,7 @@ template <typename Type> void linked_list<Type>::clear() noexcept {
 }
 
 template <typename Type>
-std::shared_ptr<typename linked_list<Type>::Node>
-linked_list<Type>::front() const noexcept {
+linked_list<Type>::Node_t linked_list<Type>::front() const noexcept {
   return head;
 }
 
@@ -34,8 +33,7 @@ template <typename Type> void linked_list<Type>::push_front(Type val) {
 }
 
 template <typename Type>
-std::shared_ptr<typename linked_list<Type>::Node>
-linked_list<Type>::erase_after(std::shared_ptr<Node> pos) {
+linked_list<Type>::Node_t linked_list<Type>::erase_after(Node_t pos) {
   if (pos == nullptr || pos->next == nullptr) {
     return nullptr;
   }
@@ -48,14 +46,14 @@ linked_list<Type>::erase_after(std::shared_ptr<Node> pos) {
 }
 
 template <typename Type>
-std::shared_ptr<typename linked_list<Type>::Node>
-linked_list<Type>::insert_after(std::shared_ptr<Node> pos, Type val) {
+linked_list<Type>::Node_t linked_list<Type>::insert_after(Node_t pos,
+                                                          Type val) {
   if (pos == nullptr)
     return nullptr;
 
   const auto after = std::make_shared<Node>(val);
 
-  const std::shared_ptr<Node> temp = pos->next;
+  const Node_t temp = pos->next;
 
   pos->next = after;
 

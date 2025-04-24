@@ -25,11 +25,13 @@ private:
     Node(Type value);
   };
 
+  using Node_t = std::shared_ptr<Node>;
+
   /// @brief The number of elements in the list.
   size_t length;
 
   /// @brief Pointer to the first node in the list.
-  std::shared_ptr<Node> head;
+  Node_t head;
 
 public:
   /// @brief Constructs an empty linked list.
@@ -49,7 +51,7 @@ public:
   /// @brief Returns a shared pointer to the first node in the list.
   /// @return A shared pointer to the front node, or nullptr if the list is
   /// empty.
-  std::shared_ptr<Node> front() const noexcept;
+  Node_t front() const noexcept;
 
   /// @brief Inserts a new element at the beginning of the list.
   /// @param val The value to insert.
@@ -65,7 +67,7 @@ public:
   /// @param pos A shared pointer to the node before the one to remove.
   /// @return A shared pointer to the node that follows the removed node, or
   /// nullptr.
-  std::shared_ptr<Node> erase_after(std::shared_ptr<Node> pos);
+  Node_t erase_after(Node_t pos);
 
   /// @brief Inserts a new element after the given position.
   ///
@@ -75,7 +77,7 @@ public:
   /// @param val The value to insert.
   /// @return A shared pointer to the newly inserted node, or nullptr if
   /// insertion fails.
-  std::shared_ptr<Node> insert_after(std::shared_ptr<Node> pos, Type val);
+  Node_t insert_after(Node_t pos, Type val);
 };
 
 } // namespace containers::sequential
