@@ -4,7 +4,7 @@
 
 namespace containers::sequential {
     template<typename T>
-    class queue : public container {
+    class abstract_queue : public container {
     public:
         virtual ~queue() override = default;
         
