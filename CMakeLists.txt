@@ -15,3 +15,4 @@ include_directories(include)
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/**/*.cpp)
 
 add_executable(poose_1 src/main.cpp ${SRC_FILES})
+add_executable(hash_map_example examples/associative/hash_map_example.cpp ${SRC_FILES})
