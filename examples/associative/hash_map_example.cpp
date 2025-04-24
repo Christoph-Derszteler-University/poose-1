@@ -9,7 +9,8 @@ int main() {
   std::cout << "exists before inserting: " << exists_before.has_value() << std::endl;
 
   container.insert("test", "indeed");
-  std::cout << "value after inserting: " << container.find_by_key("test").value() << std::endl;
+  std::cout << "value after inserting: " << container.find_by_key("test").value();
+  std::cout << " (Container size: " << container.size() << ")" << std::endl;
 
   container.remove("test");
   auto exists_remove = container.find_by_key("test");
