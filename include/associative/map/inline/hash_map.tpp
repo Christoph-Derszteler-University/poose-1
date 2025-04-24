@@ -105,88 +105,24 @@ namespace containers::associative {
   }
 
   template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator hash_map<Key, Value>::begin() {
-    const auto first_non_empty = calculate_next_non_empty_bucket_index(buckets, 0);
-    return iterator(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::begin() {
+    const auto first_non_empty = hash_iterator<bucket_t, Key, Value>::calculate_next_non_empty_bucket_index(buckets, 0);
+    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
   }
 
   template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator hash_map<Key, Value>::end() {
-    return iterator(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::end() {
+    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
   }
 
   template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator hash_map<Key, Value>::cbegin() const {
-    const auto first_non_empty = calculate_next_non_empty_bucket_index(buckets, 0);
-    return iterator(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::cbegin() const {
+    const auto first_non_empty = hash_iterator<bucket_t, Key, Value>::calculate_next_non_empty_bucket_index(buckets, 0);
+    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
   }
 
   template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator hash_map<Key, Value>::cend() const {
-    return iterator(std::make_shared<std::vector<bucket_t>>(buckets), 0);
-  }
-
-  template<typename Key, typename Value>
-  int hash_map<Key, Value>::calculate_next_non_empty_bucket_index(
-    const std::vector<bucket_t>& buckets,
-    const int& base_index
-  ) {
-    auto first_non_empty = buckets.size();
-    buckets.size();
-    for (size_t index = base_index + 1; index < buckets.size(); ++index) {
-      if (!buckets[index].empty()) {
-        first_non_empty = index;
-        break;
-      }
-    }
-    return first_non_empty;
-  }
-
-  template<typename Key, typename Value>
-  hash_map<Key, Value>::iterator::iterator(
-    const std::shared_ptr<std::vector<bucket_t>>& ptr,
-    const size_t& outer_index,
-    const size_t& inner_index
-  ) : ptr(ptr), outer_index(outer_index), inner_index(inner_index) {}
-
-  template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator::value_type hash_map<Key, Value>::iterator::operator*() const {
-    const auto& tuple = ptr->at(outer_index).at(inner_index);
-    return std::make_pair(std::get<0>(tuple), std::get<1>(tuple));
-  }
-
-  template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator& hash_map<Key, Value>::iterator::operator++() {
-    const auto new_inner_index = inner_index + 1;
-    if (new_inner_index >= ptr->at(outer_index).size()) {
-      const auto new_outer_index = calculate_next_non_empty_bucket_index(*ptr, outer_index);
-
-      inner_index = 0;
-      outer_index = new_outer_index >= ptr->size() ? ptr->size() : new_outer_index;
-      return *this;
-    }
-    inner_index = new_inner_index;
-    return *this;
-  }
-
-  template<typename Key, typename Value>
-  typename hash_map<Key, Value>::iterator hash_map<Key, Value>::iterator::operator++(int) {
-    const auto temporary = *this;
-    const auto new_inner_index = inner_index + 1;
-    if (new_inner_index >= ptr->at(outer_index).size()) {
-      const auto new_outer_index = calculate_next_non_empty_bucket_index(*ptr, outer_index);
-
-      inner_index = 0;
-      outer_index = new_outer_index >= ptr->size() ? ptr->size() : new_outer_index;
-      return temporary;
-    }
-    inner_index = new_inner_index;
-    return temporary;
-  }
-
-  template<typename Key, typename Value>
-  bool hash_map<Key, Value>::iterator::operator==(const iterator& other) const {
-    return outer_index == other.outer_index
-      && inner_index == other.inner_index;
+  hash_iterator<typename hash_map<Key, Value>::bucket_t, Key, Value> hash_map<Key, Value>::cend() const {
+    return hash_iterator<bucket_t, Key, Value>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
   }
 }

@@ -2,8 +2,10 @@
 
 #include <vector>
 #include <functional>
+#include <memory>
 
 #include "associative_multi_map.hpp"
+#include "hash_iterator.hpp"
 
 namespace containers::associative {
   /**
@@ -32,6 +34,9 @@ namespace containers::associative {
    */
   template<typename Key, typename Value>
   class hash_multi_map final : public associative_multi_map<Key, Value> {
+  protected:
+    using bucket_t = std::vector<std::tuple<Key, Value, hash_t>>;
+
   public:
     hash_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hash_multi_map(const std::function<hash_t(const Key&)>& hash_function);
@@ -42,9 +47,11 @@ namespace containers::associative {
     virtual void remove_by_key(const Key& key) override;
     virtual void remove(const Key& key, const Value& value) override;
 
+    hash_iterator<bucket_t, Key, Value> begin();
+    hash_iterator<bucket_t, Key, Value> end();
+    hash_iterator<bucket_t, Key, Value> cbegin() const;
+    hash_iterator<bucket_t, Key, Value> cend() const;
   private:
-    using bucket_t = std::vector<std::tuple<Key, Value, hash_t>>;
-
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;

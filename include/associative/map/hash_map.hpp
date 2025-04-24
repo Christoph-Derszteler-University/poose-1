@@ -6,6 +6,7 @@
 #include <optional>
 
 #include "associative_map.hpp"
+#include "hash_iterator.hpp"
 
 namespace containers::associative {
   /**
@@ -37,32 +38,6 @@ namespace containers::associative {
     using bucket_t = std::vector<std::tuple<Key, Value, hash_t>>;
 
   public:
-    struct iterator
-    {
-      using difference_type   = std::ptrdiff_t;
-      using value_type        = std::pair<Key, Value>;
-
-      iterator(
-        const std::shared_ptr<std::vector<bucket_t>>& ptr,
-        const size_t& outer_index,
-        const size_t& inner_index
-      );
-
-      value_type operator*() const;
-
-      // Prefix increment
-      iterator& operator++();
-      // Postfix increment
-      iterator operator++(int);
-
-      bool operator==(const iterator& other) const;
-
-    private:
-      std::shared_ptr<std::vector<bucket_t>> ptr;
-      size_t outer_index;
-      size_t inner_index;
-    };
-
     hash_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hash_map(const std::function<hash_t(const Key&)>& hash_function);
 
@@ -70,10 +45,10 @@ namespace containers::associative {
     virtual std::optional<Value> find_by_key(const Key& key) const override;
     virtual void remove(const Key& key) override;
 
-    iterator begin();
-    iterator end();
-    iterator cbegin() const;
-    iterator cend() const;
+    hash_iterator<bucket_t, Key, Value> begin();
+    hash_iterator<bucket_t, Key, Value> end();
+    hash_iterator<bucket_t, Key, Value> cbegin() const;
+    hash_iterator<bucket_t, Key, Value> cend() const;
 
   private:
     const std::function<hash_t(const Key&)> hash_function;
@@ -84,25 +59,6 @@ namespace containers::associative {
     bucket_t& find_bucket_by_key(const Key& key);
     void redistribute_buckets(const size_t& new_size);
     [[nodiscard]] double calculate_load_factor() const;
-
-  protected:
-    /**
-     * @brief Returns the index of the first non-empty bucket with a higher index than the specified one.
-     * @return The index of the first non-empty bucket in the vector.
-     * If all buckets are empty buckets.size() is returned.
-    */
-    [[nodiscard]] static int calculate_next_non_empty_bucket_index(
-      const std::vector<bucket_t>& buckets,
-      const int& base_index
-    );
-  };
-
-  template<typename Key, typename Value>
-  struct validate_iterator {
-    static_assert(
-      std::forward_iterator<typename hash_map<Key, Value>::iterator>,
-      "iterator must satisfy std::forward_iterator"
-    );
   };
 }
 
