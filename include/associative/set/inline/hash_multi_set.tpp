@@ -36,7 +36,7 @@ namespace containers::associative {
   template<typename Key>
   bool hash_multi_set<Key>::exists(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    return std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+    return std::ranges::find_if(bucket, [&key](const auto& other) {
       return std::get<0>(other) == key;
     }) != bucket.end();
   }

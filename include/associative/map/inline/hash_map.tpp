@@ -25,13 +25,9 @@ namespace containers::associative {
   template<typename Key, typename Value>
   void hash_map<Key, Value>::insert(const Key& key, const Value& value) {
     auto& bucket = find_bucket_by_key(key);
-    const auto exists = std::find_if(
-      bucket.begin(),
-      bucket.end(),
-      [&key](const std::tuple<Key, Value, hash_t>& tuple) {
-        return std::get<0>(tuple) == key;
-      }
-    );
+    const auto exists = std::ranges::find_if(bucket, [&key](const std::tuple<Key, Value, hash_t>& tuple) {
+      return std::get<0>(tuple) == key;
+    });
 
     if (exists == bucket.end()) {
       bucket.push_back(std::make_tuple(key, value, hash_function(key)));
@@ -46,7 +42,7 @@ namespace containers::associative {
   template<typename Key, typename Value>
   std::optional<Value> hash_map<Key, Value>::find_by_key(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    const auto it = std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+    const auto it = std::ranges::find_if(bucket, [&key](const auto& other) {
       return std::get<0>(other) == key;
     });
     return it != bucket.end() ? std::optional{std::get<1>(*it)} : std::nullopt;
