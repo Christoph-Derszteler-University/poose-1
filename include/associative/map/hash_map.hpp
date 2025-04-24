@@ -75,7 +75,7 @@ namespace containers::associative {
     const bucket_t& find_bucket_by_key(const Key& key) const;
     bucket_t& find_bucket_by_key(const Key& key);
     void redistribute_buckets(const size_t& new_size);
-    [[nodiscard]] double calculate_load_factor() const;
+    [[nodiscard]] double calculate_load_factor() const noexcept;
   };
 }
 

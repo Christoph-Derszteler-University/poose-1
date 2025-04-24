@@ -72,7 +72,7 @@ namespace containers::associative {
   }
 
   template<typename Key>
-  double hash_multi_set<Key>::calculate_load_factor() const {
+  double hash_multi_set<Key>::calculate_load_factor() const noexcept {
     return static_cast<double>(container::number_elements)
       / static_cast<double>(buckets.size());
   }
