@@ -38,8 +38,11 @@ namespace containers::associative {
     hash_multi_set(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hash_multi_set(const std::function<hash_t(const Key&)>& hash_function);
 
+    //! @copydoc associative_multi_set::insert
     virtual void insert(const Key& key) override;
+    //! @copydoc associative_multi_set::exists
     virtual bool exists(const Key& key) const override;
+    //! @copydoc associative_multi_set::remove
     virtual void remove(const Key& key) override;
 
     hash_set_iterator<bucket_t, Key> begin();

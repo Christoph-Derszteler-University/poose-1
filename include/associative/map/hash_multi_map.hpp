@@ -40,10 +40,15 @@ namespace containers::associative {
     hash_multi_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hash_multi_map(const std::function<hash_t(const Key&)>& hash_function);
 
+    //! @copydoc associative_multi_map::insert
     virtual void insert(const Key& key, const Value& value) override;
+    //! @copydoc associative_multi_map::exists_by_key
     virtual bool exists_by_key(const Key& key) const override;
+    //! @copydoc associative_multi_map::exists
     virtual bool exists(const Key& key, const Value& value) const override;
+    //! @copydoc associative_multi_map::remove_by_key
     virtual void remove_by_key(const Key& key) override;
+    //! @copydoc associative_multi_map::remove
     virtual void remove(const Key& key, const Value& value) override;
 
     hash_map_iterator<bucket_t, Key, Value> begin();

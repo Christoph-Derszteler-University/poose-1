@@ -40,8 +40,11 @@ namespace containers::associative {
     hash_map(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
     explicit hash_map(const std::function<hash_t(const Key&)>& hash_function);
 
+    //! @copydoc associative_map::insert
     virtual void insert(const Key& key, const Value& value) override;
+    //! @copydoc associative_map::find_by_key
     virtual std::optional<Value> find_by_key(const Key& key) const override;
+    //! @copydoc associative_map::remove
     virtual void remove(const Key& key) override;
 
     hash_map_iterator<bucket_t, Key, Value> begin();
