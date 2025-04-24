@@ -26,7 +26,7 @@ private:
   };
 
   /// @brief The number of elements in the list.
-  size_t length = 0;
+  size_t length;
 
   /// @brief Pointer to the first node in the list.
   std::shared_ptr<Node> head;
@@ -37,7 +37,7 @@ public:
 
   /// @brief Returns the number of elements in the list.
   /// @return The number of elements currently stored.
-  const size_t size();
+  const size_t size() override;
 
   /// @brief Checks whether the list is empty.
   /// @return True if the list has no elements, false otherwise.

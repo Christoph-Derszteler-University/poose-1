@@ -1,5 +1,5 @@
-#include <sequential/linked_list.hpp>
 #include <iostream>
+#include <sequential/linked_list.hpp>
 
 int main() {
   containers::sequential::linked_list<int> l;
