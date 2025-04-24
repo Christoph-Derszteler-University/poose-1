@@ -35,7 +35,23 @@ namespace containers::associative {
     using bucket_t = std::vector<std::pair<Key, hash_t>>;
 
   public:
+    /**
+     * @brief Constructs a hash_multi_set with a custom hash function and a specified number of buckets.
+     *
+     * @param hash_function A callable object that computes the hash of a given key.
+     * @param bucket_count The initial number of buckets in the hash multi-set.
+     *
+     * @details The number of buckets is adjusted to the nearest power of 2 greater than or equal to `bucket_count`.
+     */
     hash_multi_set(const std::function<hash_t(const Key&)>& hash_function, const size_t& bucket_count);
+
+    /**
+     * @brief Constructs a hash_multi_set with a custom hash function and a single bucket.
+     *
+     * @param hash_function A callable object that computes the hash of a given key.
+     *
+     * @details This constructor initializes the hash multi-set with a single bucket, suitable for small datasets.
+     */
     explicit hash_multi_set(const std::function<hash_t(const Key&)>& hash_function);
 
     //! @copydoc associative_multi_set::insert
