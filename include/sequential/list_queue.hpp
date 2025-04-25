@@ -17,7 +17,7 @@ namespace containers::sequential{
         /**
          * @brief constructs a new empty queue
          */
-        queue();
+        list_queue();
 
         //! @copydoc abstract_queue::enqueue
         void enqueue(const T& data) override;
