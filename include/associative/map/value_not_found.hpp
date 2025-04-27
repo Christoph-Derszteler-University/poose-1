@@ -11,7 +11,8 @@ namespace containers::associative {
     virtual const char* what() const noexcept override;
     const Key& key() const;
   private:
-    const Key& associated_key;
+    const Key associated_key;
+    const std::string message;
   };
 }
 

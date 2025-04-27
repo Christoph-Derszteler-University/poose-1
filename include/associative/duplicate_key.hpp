@@ -1,17 +1,19 @@
 #pragma once
 
 #include <exception>
+#include <string>
 
 namespace containers::associative {
   template<typename Key>
   class duplicate_key final : public std::exception {
   public:
-    duplicate_key(const Key& key);
+    explicit duplicate_key(const Key& key);
 
     virtual const char* what() const noexcept override;
     const Key& key() const;
   private:
-    const Key& associated_key;
+    const Key associated_key;
+    const std::string message;
   };
 }
 
