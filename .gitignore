@@ -11,3 +11,6 @@ build
 
 # clangd
 .cache
+
+# Doxygen
+docs
