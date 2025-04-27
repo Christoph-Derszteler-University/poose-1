@@ -10,9 +10,15 @@ int main() {
 
   container.insert("test", "indeed");
   container.insert("okay", "boomer");
-  container.insert("test", "lmao");
+  container.insert_safely("test", "lmao");
   std::cout << "value after inserting: " << container.find_by_key("test").value()
     << " (Container size: " << container.size() << ")" << std::endl;
+
+  try {
+    const auto test = container.find_by_key_or_throw("lol");
+  } catch (const containers::associative::value_not_found<std::string>& value_not_found) {
+    std::cout << value_not_found.what() << std::endl;
+  }
 
   // Check twice
   for (auto index = 0; index < 2; ++index) {

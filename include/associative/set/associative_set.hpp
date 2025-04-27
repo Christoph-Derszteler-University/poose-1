@@ -11,9 +11,17 @@ namespace containers::associative {
     /**
      * @brief Inserts a key into the container.
      * @param key The key to insert.
+     * @throws duplicate_key If the key already exists in the container.
      * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
      */
     virtual void insert(const Key& key) = 0;
+
+    /**
+     * @brief Inserts a key into the container safely. Does not throw if the key already exists.
+     * @param key The key to insert.
+     * @note Runtime complexity: O(log n) for ordered containers, O(1) on average for hash-based containers.
+     */
+    virtual void insert_safely(const Key& key) = 0;
 
     /**
      * @brief Checks if a key exists in the container.
