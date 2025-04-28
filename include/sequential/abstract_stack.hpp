@@ -6,7 +6,7 @@ namespace containers::sequential {
     template<typename T>
     class abstract_stack : public container {
     public:
-        virtual ~stack() override = default;
+        virtual ~abstract_stack() override = default;
         
         /**
          * @brief Inserts a value at the front of the container

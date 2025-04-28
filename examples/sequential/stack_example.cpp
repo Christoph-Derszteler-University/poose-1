@@ -1,4 +1,4 @@
-#include "include/sequential/list_stack.hpp"
+#include "sequential/list_stack.hpp"
 #include <iostream>
 
 using namespace containers::sequential;
@@ -9,8 +9,8 @@ int main() {
     my_int_stack.push(71);
     my_int_stack.push(9);
 
-    size_t size = my_int_stack.size();
-    std::cout << "Die Größe hinter dem ':' sollte drei sein: " << size << std::endl;
+    size_t list_size = my_int_stack.size();
+    std::cout << "Die Größe hinter dem ':' sollte drei sein: " << list_size << std::endl;
 
     int vorne = my_int_stack.pop();
     std::cout << "Das oberste Element auf dem Stack war " << vorne << std::endl;
