@@ -14,6 +14,7 @@ namespace containers::sequential {
         T tmp = m_list.front();
         m_list.pop_front();
         length--;
+        return tmp;
     }
     template <typename T> bool list_queue<T>::isEmpty(){
         return (length == 0);
