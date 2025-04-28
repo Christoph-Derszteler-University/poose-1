@@ -4,7 +4,7 @@
 
 namespace containers::sequential {
     template<typename T>
-    class stack : public container {
+    class abstract_stack : public container {
     public:
         virtual ~stack() override = default;
         
@@ -25,6 +25,12 @@ namespace containers::sequential {
          * @return True if empty, False else
          */
         virtual bool isEmpty() = 0;
+        /**
+        * @brief Returns the number of elements in the container.
+        * @return The size of the container.
+        * @note This method has a runtime complexity of O(1).
+        */
+        virtual size_t size()= 0;
 
     };
 }
