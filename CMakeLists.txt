@@ -41,8 +41,15 @@ FetchContent_MakeAvailable(googletest)
 
 
 enable_testing()
-add_executable(test_example tests/test_example.cpp)
-target_link_libraries(test_example GTest::gtest_main)
-
 include(GoogleTest)
-gtest_discover_tests(test_example)
+
+# Associative containers tests
+add_executable(hash_set_test tests/associative/hash_set_test.cpp ${SRC_FILES})
+target_link_libraries(hash_set_test GTest::gtest_main)
+add_executable(hash_map_test tests/associative/hash_map_test.cpp ${SRC_FILES})
+target_link_libraries(hash_map_test GTest::gtest_main)
+add_executable(hash_multi_set_test tests/associative/hash_multi_set_test.cpp ${SRC_FILES})
+target_link_libraries(hash_multi_set_test GTest::gtest_main)
+add_executable(hash_multi_map_test tests/associative/hash_multi_map_test.cpp ${SRC_FILES})
+target_link_libraries(hash_multi_map_test GTest::gtest_main)
+gtest_discover_tests(hash_set_test hash_map_test hash_multi_set_test hash_multi_map_test)
