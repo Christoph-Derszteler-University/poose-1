@@ -37,7 +37,7 @@ namespace containers::associative {
   template<typename Key>
   void hash_set<Key>::insert_with_optional_throw(
     const Key& key,
-    const bool& throw_exception
+    bool throw_exception
   ) {
     auto& bucket = find_bucket_by_key(key);
     const auto exists = std::ranges::find_if(bucket, [&key](const std::pair<Key, hash_t>& value) {

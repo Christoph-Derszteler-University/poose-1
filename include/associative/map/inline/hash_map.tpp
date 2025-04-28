@@ -39,7 +39,7 @@ namespace containers::associative {
   void hash_map<Key, Value>::insert_with_optional_throw(
     const Key& key,
     const Value& value,
-    const bool& throw_exception
+    bool throw_exception
   ) {
     auto& bucket = find_bucket_by_key(key);
     const auto exists = std::ranges::find_if(bucket, [&key](const std::tuple<Key, Value, hash_t>& tuple) {

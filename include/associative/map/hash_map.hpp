@@ -76,7 +76,7 @@ namespace containers::associative {
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
 
-    void insert_with_optional_throw(const Key& key, const Value& value, const bool& throw_exception);
+    void insert_with_optional_throw(const Key& key, const Value& value, bool throw_exception);
 
     [[nodiscard]] const bucket_t& find_bucket_by_key(const Key& key) const;
     [[nodiscard]] bucket_t& find_bucket_by_key(const Key& key);
