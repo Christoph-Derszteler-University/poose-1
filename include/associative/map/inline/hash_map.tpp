@@ -4,6 +4,9 @@
 #include <tuple>
 #include <algorithm>
 
+#include "associative/map/value_not_found.hpp"
+#include "associative/duplicate_key.hpp"
+
 namespace containers::associative {
   template<typename Key, typename Value>
   hash_map<Key, Value>::hash_map(
@@ -24,6 +27,20 @@ namespace containers::associative {
 
   template<typename Key, typename Value>
   void hash_map<Key, Value>::insert(const Key& key, const Value& value) {
+    insert_with_optional_throw(key, value, true);
+  }
+
+  template<typename Key, typename Value>
+  void hash_map<Key, Value>::insert_safely(const Key& key, const Value& value) {
+    insert_with_optional_throw(key, value, false);
+  }
+
+  template<typename Key, typename Value>
+  void hash_map<Key, Value>::insert_with_optional_throw(
+    const Key& key,
+    const Value& value,
+    bool throw_exception
+  ) {
     auto& bucket = find_bucket_by_key(key);
     const auto exists = std::ranges::find_if(bucket, [&key](const std::tuple<Key, Value, hash_t>& tuple) {
       return std::get<0>(tuple) == key;
@@ -32,6 +49,8 @@ namespace containers::associative {
     if (exists == bucket.end()) {
       bucket.push_back(std::make_tuple(key, value, hash_function(key)));
       container::number_elements++;
+    } else if (throw_exception) {
+      throw duplicate_key<Key>(key);
     }
 
     if (calculate_load_factor() >= 0.75) {
@@ -46,6 +65,15 @@ namespace containers::associative {
       return std::get<0>(other) == key;
     });
     return it != bucket.end() ? std::optional{std::get<1>(*it)} : std::nullopt;
+  }
+
+  template<typename Key, typename Value>
+  Value hash_map<Key, Value>::find_by_key_or_throw(const Key& key) const {
+    const auto& optional = find_by_key(key);
+    if (!optional.has_value()) {
+      throw value_not_found<Key>(key);
+    }
+    return optional.value();
   }
 
   template<typename Key, typename Value>

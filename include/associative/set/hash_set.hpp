@@ -56,6 +56,8 @@ namespace containers::associative {
 
     //! @copydoc associative_set::insert
     virtual void insert(const Key& key) override;
+    //! @copydoc associative_set::insert_safely
+    virtual void insert_safely(const Key& key) override;
     //! @copydoc associative_set::exists
     virtual bool exists(const Key& key) const override;
     //! @copydoc associative_set::remove
@@ -70,6 +72,8 @@ namespace containers::associative {
     const std::function<hash_t(const Key&)> hash_function;
     // TODO: Replace with custom list implementation
     std::vector<bucket_t> buckets;
+
+    void insert_with_optional_throw(const Key& key, bool throw_exception);
 
     [[nodiscard]] const bucket_t& find_bucket_by_key(const Key& key) const;
     [[nodiscard]] bucket_t& find_bucket_by_key(const Key& key);

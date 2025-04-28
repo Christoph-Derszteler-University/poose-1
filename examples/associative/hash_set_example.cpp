@@ -9,7 +9,7 @@ int main() {
 
   container.insert("test");
   container.insert("okay");
-  container.insert("test");
+  container.insert_safely("test");
   std::cout << " (Container size: " << container.size() << ")" << std::endl;
 
   // Check twice

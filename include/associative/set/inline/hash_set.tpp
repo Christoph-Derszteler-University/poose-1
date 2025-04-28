@@ -4,6 +4,8 @@
 #include <tuple>
 #include <algorithm>
 
+#include "associative/duplicate_key.hpp"
+
 namespace containers::associative {
   template<typename Key>
   hash_set<Key>::hash_set(
@@ -24,6 +26,19 @@ namespace containers::associative {
 
   template<typename Key>
   void hash_set<Key>::insert(const Key& key) {
+    insert_with_optional_throw(key, true);
+  }
+
+  template<typename Key>
+  void hash_set<Key>::insert_safely(const Key& key) {
+    insert_with_optional_throw(key, false);
+  }
+
+  template<typename Key>
+  void hash_set<Key>::insert_with_optional_throw(
+    const Key& key,
+    bool throw_exception
+  ) {
     auto& bucket = find_bucket_by_key(key);
     const auto exists = std::ranges::find_if(bucket, [&key](const std::pair<Key, hash_t>& value) {
       return std::get<0>(value) == key;
@@ -32,6 +47,8 @@ namespace containers::associative {
     if (exists == bucket.end()) {
       bucket.push_back(std::make_pair(key, hash_function(key)));
       container::number_elements++;
+    } else if (throw_exception) {
+      throw duplicate_key<Key>(key);
     }
 
     if (calculate_load_factor() >= 0.75) {
