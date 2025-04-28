@@ -1,5 +1,7 @@
 #pragma once
 #include "abstract_queue.hpp"
+//TODO: change std::list with own implementation doubly_linked_list
+#include <list>
 
 namespace containers::sequential{
     
@@ -38,11 +40,7 @@ namespace containers::sequential{
         private:
 
         size_t length;
-
-        //yet to be implemented by using class doubly_linked_list
-        //head = 
-        //tail =
-
+        std::list<T> m_list;
     };
 }
 

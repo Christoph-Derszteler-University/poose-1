@@ -6,7 +6,7 @@ namespace containers::sequential {
     template<typename T>
     class abstract_queue : public container {
     public:
-        virtual ~queue() override = default;
+        virtual ~abstract_queue() override = default;
         
         /**
          * @brief Inserts a value at the end of the container
