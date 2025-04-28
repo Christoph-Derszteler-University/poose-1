@@ -9,6 +9,7 @@ namespace containers::sequential {
     class list_stack: public abstract_stack<T> {
     private:
         auto list;
+        size_t size;
     public:
         /**
          * @brief constructs a stack using the list structure
