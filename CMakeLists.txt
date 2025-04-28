@@ -23,6 +23,7 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 # Sequential examples
 add_executable(queue_example examples/sequential/queue_example.cpp ${SRC_FILES})
+add_executable(stack_example examples/sequential/stack_example.cpp ${SRC_FILES})
 
 # Associative examples
 add_executable(hash_map_example examples/associative/hash_map_example.cpp ${SRC_FILES})
