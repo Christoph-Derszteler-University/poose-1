@@ -30,13 +30,6 @@ namespace containers::sequential{
         //! @copydoc abstract_queue::isEmpty
         bool is_empty() const noexcept override;
 
-        /**
-        * @brief Returns the number of elements in the queue.
-        * @return The size of the queue.
-        * @note This method has a runtime complexity of O(1).
-        */
-        const size_t size() override;
-
         private:
 
         size_t m_length;

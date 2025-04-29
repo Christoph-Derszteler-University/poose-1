@@ -25,12 +25,5 @@ namespace containers::sequential {
          * @return True if empty, False else
          */
         virtual bool is_empty() const noexcept = 0;
-
-        /**
-        * @brief Returns the number of elements in the queue.
-        * @return The size of the queue.
-        * @note This method has a runtime complexity of O(1).
-        */
-        virtual const size_t size() = 0;
     };
 }
