@@ -84,6 +84,7 @@ template <typename Type>
 class linked_list : public abstract_linked_list<Type> {
 private:
   using node = abstract_linked_list<Type>::node;
+  /// @copydoc abstract_linked_list::node_t
   using node_t = abstract_linked_list<Type>::node_t;
 
   /// @brief Pointer to the first node in the list.
@@ -93,43 +94,25 @@ public:
   /// @brief Constructs an empty linked list.
   linked_list();
 
-  /// @brief Checks whether the list is empty.
-  /// @return True if the list has no elements, false otherwise.
+  /// @copydoc abstract_linked_list::empty
   bool empty() const noexcept override;
 
-  /// @brief Removes all elements from the list.
+  /// @copydoc abstract_linked_list::clear
   void clear() noexcept override;
 
-  /// @brief Returns a shared pointer to the first node in the list.
-  /// @return A shared pointer to the front node, or nullptr if the list is empty.
+  /// @copydoc abstract_linked_list::front
   node_t front() const noexcept override;
 
-  /// @brief Inserts a new element at the beginning of the list.
-  /// @param val The value to insert.
+  /// @copydoc abstract_linked_list::push_front
   void push_front(Type val) override;
 
-  /// @brief Removes the first element from the list.
+  /// @copydoc abstract_linked_list::pop_front
   void pop_front() override;
 
-  /// @brief Removes the node immediately following the given position.
-  ///
-  /// If the provided position is nullptr or has no next node, the function
-  /// returns nullptr.
-  ///
-  /// @param pos A shared pointer to the node before the one to remove.
-  /// @return A shared pointer to the node that follows the removed node, or
-  /// nullptr.
+  /// @copydoc abstract_linked_list::erase_after
   node_t erase_after(node_t pos) override;
 
-  /// @brief Inserts a new element after the given position.
-  ///
-  /// If the position is nullptr, no insertion is performed.
-  ///
-  /// @param pos A shared pointer to the node after which the new value will be
-  /// inserted.
-  /// @param val The value to insert.
-  /// @return A shared pointer to the newly inserted node, or nullptr if
-  /// insertion fails.
+  /// @copydoc abstract_linked_list::insert_after
   node_t insert_after(node_t pos, Type val) override;
 };
 
