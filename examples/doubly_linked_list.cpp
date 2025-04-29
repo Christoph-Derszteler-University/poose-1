@@ -2,28 +2,28 @@
 #include <sequential/doubly_linked_list.hpp>
 
 int main() {
-  containers::sequential::doubly_linked_list<int> l;
+  containers::sequential::doubly_linked_list<int> list;
 
   // 10 -> 5 -> 200
-  l.push_front(5);
-  l.push_front(10);
-  l.push_back(200);
+  list.push_front(5);
+  list.push_front(10);
+  list.push_back(200);
 
   // 10 -> 5
-  l.pop_back();
+  list.pop_back();
 
-  auto ten = l.front();
+  auto ten = list.front();
   // 1000 -> 10 -> 5
-  l.insert(ten, 1000);
+  list.insert(ten, 1000);
 
-  std::cout << l.size() << std::endl;
+  std::cout << list.size() << std::endl;
 
   // 1000 -> 10
-  l.erase(l.back());
+  list.erase(list.back());
 
-  std::cout << l.size() << std::endl;
+  std::cout << list.size() << std::endl;
 
-  for (auto head = l.front(); head != nullptr; head = head->next) {
+  for (auto head = list.front(); head != nullptr; head = head->next) {
     std::cout << head->data << " ";
   }
 }
