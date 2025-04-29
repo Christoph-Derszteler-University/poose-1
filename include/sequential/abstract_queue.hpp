@@ -24,7 +24,7 @@ namespace containers::sequential {
          * @brief Checks if the container is empty
          * @return True if empty, False else
          */
-        virtual bool isEmpty() const noexcept = 0;
+        virtual bool is_empty() const noexcept = 0;
 
         /**
         * @brief Returns the number of elements in the queue.

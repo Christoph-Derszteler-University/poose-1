@@ -14,7 +14,7 @@ namespace containers::sequential {
         m_length--;
         return tmp;
     }
-    template <typename T> bool list_queue<T>::isEmpty() const noexcept{
+    template <typename T> bool list_queue<T>::is_empty() const noexcept{
         return (m_length == 0);
     }
     template <typename T> const size_t list_queue<T>::size(){

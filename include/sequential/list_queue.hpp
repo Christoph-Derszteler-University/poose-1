@@ -28,7 +28,7 @@ namespace containers::sequential{
         T dequeue() override;
 
         //! @copydoc abstract_queue::isEmpty
-        bool isEmpty() const noexcept override;
+        bool is_empty() const noexcept override;
 
         /**
         * @brief Returns the number of elements in the queue.
