@@ -16,20 +16,20 @@ template <typename Type>
 class abstract_linked_list : public container {
 protected:
   /// @brief Internal node structure used in the linked list.
-  struct Node {
+  struct node {
     /// @brief The data stored in the node.
     Type data;
 
     /// @brief Shared pointer to the next node in the list.
-    std::shared_ptr<Node> next;
+    std::shared_ptr<node> next;
 
     /// @brief Constructs a node with the specified value.
     /// @param value The value to store in the node.
-    Node(Type value);
+    node(Type value);
   };
 
   /// @brief Type alias for a shared pointer to a Node.
-  using Node_t = std::shared_ptr<Node>;
+  using node_t = std::shared_ptr<node>;
 
   /// @brief Virtual destructor for cleanup in derived classes.
   virtual ~abstract_linked_list() override = default;
@@ -43,7 +43,7 @@ protected:
 
   /// @brief Returns a shared pointer to the first node in the list.
   /// @return A shared pointer to the front node, or nullptr if the list is empty.
-  virtual Node_t front() const noexcept = 0;
+  virtual node_t front() const noexcept = 0;
 
   /// @brief Inserts a new element at the beginning of the list.
   /// @param val The value to insert.
@@ -60,7 +60,7 @@ protected:
   /// @param pos A shared pointer to the node before the one to remove.
   /// @return A shared pointer to the node that follows the removed node,
   /// or nullptr.
-  virtual Node_t erase_after(Node_t pos) = 0;
+  virtual node_t erase_after(node_t pos) = 0;
 
   /// @brief Inserts a new element after the given position.
   ///
@@ -71,7 +71,7 @@ protected:
   /// @param val The value to insert.
   /// @return A shared pointer to the newly inserted node, or nullptr if
   /// insertion fails.
-  virtual Node_t insert_after(Node_t pos, Type val) = 0;
+  virtual node_t insert_after(node_t pos, Type val) = 0;
 };
 
 /// @brief A singly linked list container implementation.
@@ -83,11 +83,11 @@ protected:
 template <typename Type>
 class linked_list : public abstract_linked_list<Type> {
 private:
-  using Node = abstract_linked_list<Type>::Node;
-  using Node_t = abstract_linked_list<Type>::Node_t;
+  using node = abstract_linked_list<Type>::node;
+  using node_t = abstract_linked_list<Type>::node_t;
 
   /// @brief Pointer to the first node in the list.
-  Node_t head;
+  node_t head;
 
 public:
   /// @brief Constructs an empty linked list.
@@ -102,7 +102,7 @@ public:
 
   /// @brief Returns a shared pointer to the first node in the list.
   /// @return A shared pointer to the front node, or nullptr if the list is empty.
-  Node_t front() const noexcept override;
+  node_t front() const noexcept override;
 
   /// @brief Inserts a new element at the beginning of the list.
   /// @param val The value to insert.
@@ -119,7 +119,7 @@ public:
   /// @param pos A shared pointer to the node before the one to remove.
   /// @return A shared pointer to the node that follows the removed node, or
   /// nullptr.
-  Node_t erase_after(Node_t pos) override;
+  node_t erase_after(node_t pos) override;
 
   /// @brief Inserts a new element after the given position.
   ///
@@ -130,7 +130,7 @@ public:
   /// @param val The value to insert.
   /// @return A shared pointer to the newly inserted node, or nullptr if
   /// insertion fails.
-  Node_t insert_after(Node_t pos, Type val) override;
+  node_t insert_after(node_t pos, Type val) override;
 };
 
 } // namespace containers::sequential
