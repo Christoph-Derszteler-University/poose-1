@@ -46,7 +46,6 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
   }
 
   container::number_elements++;
-
   return new_node;
 }
 
