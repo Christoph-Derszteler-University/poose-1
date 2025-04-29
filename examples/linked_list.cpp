@@ -10,6 +10,8 @@ int main() {
   l.erase_after(head);
   auto tail = l.insert_after(head, 40);
 
+  std::cout << l.size() << std::endl;
+
   for (auto node = l.front(); node != nullptr; node = node->next) {
     std::cout << node->data << " ";
   }

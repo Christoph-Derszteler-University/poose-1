@@ -5,19 +5,15 @@ namespace containers::sequential {
 template <typename Type> linked_list<Type>::linked_list() = default;
 
 template <typename Type>
-linked_list<Type>::Node::Node(Type value) : data(value){};
-
-template <typename Type> const size_t linked_list<Type>::size() {
-  return length;
-}
+abstract_linked_list<Type>::Node::Node(Type value) : data(value){};
 
 template <typename Type> bool linked_list<Type>::empty() const noexcept {
-  return size() == 0;
+  return container::number_elements == 0;
 }
 
 template <typename Type> void linked_list<Type>::clear() noexcept {
   head = nullptr;
-  length = 0;
+  container::number_elements = 0;
 }
 
 template <typename Type>
@@ -29,7 +25,7 @@ template <typename Type> void linked_list<Type>::push_front(Type val) {
   auto new_node = std::make_shared<Node>(val);
   new_node->next = head;
   head = new_node;
-  length++;
+  container::number_elements++;
 }
 
 template <typename Type>
@@ -40,7 +36,7 @@ linked_list<Type>::Node_t linked_list<Type>::erase_after(Node_t pos) {
 
   pos->next = pos->next->next;
 
-  length--;
+  container::number_elements--;
 
   return pos->next;
 }
@@ -59,7 +55,7 @@ linked_list<Type>::Node_t linked_list<Type>::insert_after(Node_t pos,
 
   after->next = temp;
 
-  length++;
+  container::number_elements++;
 
   return after;
 }
@@ -68,6 +64,6 @@ template <typename Type> void linked_list<Type>::pop_front() {
   if (head == nullptr)
     return;
   head = head->next;
-  length--;
+  container::number_elements--;
 }
 } // namespace containers::sequential
