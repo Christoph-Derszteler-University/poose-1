@@ -16,8 +16,12 @@ int main() {
   // 1000 -> 10 -> 5
   l.insert(ten, 1000);
 
+  std::cout << l.size() << std::endl;
+
   // 1000 -> 10
   l.erase(l.back());
+
+  std::cout << l.size() << std::endl;
 
   for (auto head = l.front(); head != nullptr; head = head->next) {
     std::cout << head->data << " ";

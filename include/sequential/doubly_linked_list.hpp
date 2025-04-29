@@ -6,22 +6,21 @@
 namespace containers::sequential {
 
 /**
- * @brief A generic doubly linked list implementation.
+ * @brief Abstract base class for a doubly linked list container.
  *
- * Provides standard operations for adding, removing, and accessing elements
- * in a doubly linked structure.
+ * Defines the interface for a generic doubly linked list.
  *
  * @tparam T The type of the elements stored in the list.
  */
-template <typename T> class doubly_linked_list : public container {
-private:
+template <typename T> class abstract_doubly_linked_list : public container {
+protected:
   /**
    * @brief Internal node structure for the doubly linked list.
    */
   struct Node {
-    T data;
-    std::shared_ptr<Node> next;
-    std::weak_ptr<Node> prev;
+    T data;                     ///< The data stored in the node.
+    std::shared_ptr<Node> next; ///< Pointer to the next node.
+    std::weak_ptr<Node> prev;   ///< Weak pointer to the previous node.
 
     /**
      * @brief Construct a new Node with the given value.
@@ -33,9 +32,95 @@ private:
 
   using Node_t = std::shared_ptr<Node>;
 
-  Node_t m_head;
-  Node_t m_tail;
-  size_t m_length;
+  /**
+   * @brief Virtual destructor to ensure proper cleanup in derived classes.
+   */
+  virtual ~abstract_doubly_linked_list() override = default;
+
+  /**
+   * @brief Checks if the list is empty.
+   *
+   * @return true if empty, false otherwise.
+   */
+  virtual bool empty() const noexcept = 0;
+
+  /**
+   * @brief Returns the front node of the list.
+   *
+   * @return A shared pointer to the front node.
+   */
+  virtual Node_t front() const noexcept = 0;
+
+  /**
+   * @brief Returns the back node of the list.
+   *
+   * @return A shared pointer to the back node.
+   */
+  virtual Node_t back() const noexcept = 0;
+
+  /**
+   * @brief Removes all elements from the list.
+   */
+  virtual void clear() noexcept = 0;
+
+  /**
+   * @brief Inserts a new element before the given node position.
+   *
+   * @param pos The position before which to insert the new node.
+   * @param val The value to be inserted.
+   * @return A shared pointer to the newly inserted node.
+   */
+  virtual Node_t insert(Node_t pos, T val) = 0;
+
+  /**
+   * @brief Removes the node at the specified position.
+   *
+   * @param pos The node to remove.
+   * @return A shared pointer to the next node after the removed node.
+   */
+  virtual Node_t erase(Node_t pos) = 0;
+
+  /**
+   * @brief Appends an element to the back of the list.
+   *
+   * @param val The value to be appended.
+   */
+  virtual void push_back(T val) = 0;
+
+  /**
+   * @brief Removes the last element of the list.
+   */
+  virtual void pop_back() noexcept = 0;
+
+  /**
+   * @brief Inserts an element at the front of the list.
+   *
+   * @param val The value to be inserted.
+   */
+  virtual void push_front(T val) = 0;
+
+  /**
+   * @brief Removes the first element of the list.
+   */
+  virtual void pop_front() noexcept = 0;
+};
+
+/**
+ * @brief A generic doubly linked list implementation.
+ *
+ * Provides standard operations for adding, removing, and accessing elements
+ * in a doubly linked structure.
+ *
+ * @tparam T The type of the elements stored in the list.
+ */
+template <typename T>
+class doubly_linked_list : public abstract_doubly_linked_list<T> {
+private:
+  using Node = typename abstract_doubly_linked_list<T>::Node;
+  using Node_t = typename abstract_doubly_linked_list<T>::Node_t;
+
+  Node_t m_head; ///< Pointer to the head of the list.
+  Node_t m_tail; ///< Pointer to the tail of the list.
 
 public:
   /**
@@ -43,21 +128,12 @@ public:
    */
   doubly_linked_list();
 
-  /* Capacity */
-
-  /**
-   * @brief Returns the number of elements in the list.
-   *
-   * @return The number of elements.
-   */
-  const size_t size() const override;
-
   /**
    * @brief Checks whether the list is empty.
    *
    * @return true if the list is empty, false otherwise.
    */
-  bool empty();
+  bool empty() const noexcept override;
 
   /* Element Access */
 
@@ -66,21 +142,21 @@ public:
    *
    * @return A shared pointer to the head node.
    */
-  Node_t front() const noexcept;
+  Node_t front() const noexcept override;
 
   /**
    * @brief Returns a pointer to the last node.
    *
    * @return A shared pointer to the tail node.
    */
-  Node_t back() const noexcept;
+  Node_t back() const noexcept override;
 
   /* Modifiers */
 
   /**
    * @brief Removes all elements from the list.
    */
-  void clear() noexcept;
+  void clear() noexcept override;
 
   /**
    * @brief Inserts a new node with the specified value before the given
@@ -91,7 +167,7 @@ public:
    * @return A shared pointer to the newly inserted node, or nullptr if the
    * position is invalid.
    */
-  Node_t insert(Node_t pos, T val);
+  Node_t insert(Node_t pos, T val) override;
 
   /**
    * @brief Removes the node at the given position.
@@ -100,32 +176,33 @@ public:
    * @return A shared pointer to the next node after the removed one, or nullptr
    * if the position is invalid.
    */
-  Node_t erase(Node_t pos);
+  Node_t erase(Node_t pos) override;
 
   /**
    * @brief Adds an element to the end of the list.
    *
    * @param val The value to add.
    */
-  void push_back(T val);
+  void push_back(T val) override;
 
   /**
    * @brief Removes the last element of the list.
    */
-  void pop_back() noexcept;
+  void pop_back() noexcept override;
 
   /**
    * @brief Adds an element to the front of the list.
    *
    * @param val The value to add.
    */
-  void push_front(T val);
+  void push_front(T val) override;
 
   /**
    * @brief Removes the first element of the list.
    */
-  void pop_front() noexcept;
+  void pop_front() noexcept override;
 };
+
 } // namespace containers::sequential
 
 #include <sequential/inline/doubly_linked_list.tpp>

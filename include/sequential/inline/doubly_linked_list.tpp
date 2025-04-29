@@ -5,19 +5,11 @@ namespace containers::sequential {
 template <typename T> doubly_linked_list<T>::doubly_linked_list() = default;
 
 template <typename T>
-doubly_linked_list<T>::Node::Node(T value) : data(value){};
+abstract_doubly_linked_list<T>::Node::Node(T value) : data(value){};
 
-/* Capacity */
-
-template <typename T> const size_t doubly_linked_list<T>::size() {
-  return m_length;
+template <typename T> bool doubly_linked_list<T>::empty() const noexcept {
+  return container::number_elements == 0;
 }
-
-template <typename T> bool doubly_linked_list<T>::empty() {
-  return size() == 0;
-}
-
-/* Element Access */
 
 template <typename T>
 doubly_linked_list<T>::Node_t doubly_linked_list<T>::front() const noexcept {
@@ -29,11 +21,9 @@ doubly_linked_list<T>::Node_t doubly_linked_list<T>::back() const noexcept {
   return m_tail;
 }
 
-/* Modifiers */
-
 template <typename T> void doubly_linked_list<T>::clear() noexcept {
   m_head = m_tail = nullptr;
-  m_length = 0;
+  container::number_elements = 0;
 }
 
 template <typename T>
@@ -54,7 +44,7 @@ doubly_linked_list<T>::Node_t doubly_linked_list<T>::insert(Node_t pos, T val) {
     pos->prev = newNode;
   }
 
-  m_length++;
+  container::number_elements++;
 
   return newNode;
 }
@@ -64,7 +54,7 @@ doubly_linked_list<T>::Node_t doubly_linked_list<T>::erase(Node_t pos) {
   if (pos == nullptr)
     return nullptr;
 
-  m_length--;
+  container::number_elements--;
   if (pos == m_head) {
     m_head = pos->next;
     pos->next = nullptr;
@@ -91,7 +81,7 @@ template <typename T> void doubly_linked_list<T>::push_back(T val) {
     newNode->prev = m_tail;
     m_tail = newNode;
   }
-  m_length++;
+  container::number_elements++;
 }
 
 template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
@@ -106,7 +96,7 @@ template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
   }
   m_tail = prev;
 
-  m_length--;
+  container::number_elements--;
 }
 
 template <typename T> void doubly_linked_list<T>::push_front(T val) {
@@ -119,13 +109,13 @@ template <typename T> void doubly_linked_list<T>::push_front(T val) {
     m_head = newNode;
   }
 
-  m_length++;
+  container::number_elements++;
 }
 
 template <typename T> void doubly_linked_list<T>::pop_front() noexcept {
   if (!empty()) {
     m_head = m_head->next;
-    m_length--;
+    container::number_elements--;
   }
 }
 } // namespace containers::sequential
