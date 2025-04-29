@@ -28,8 +28,9 @@ template <typename T> void doubly_linked_list<T>::clear() noexcept {
 
 template <typename T>
 doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
-  if (pos == nullptr)
+  if (pos == nullptr) {
     return nullptr;
+  }
 
   const auto newNode = std::make_shared<node>(val);
 
@@ -51,8 +52,9 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
 
 template <typename T>
 doubly_linked_list<T>::node_t doubly_linked_list<T>::erase(node_t pos) {
-  if (pos == nullptr)
+  if (pos == nullptr) {
     return nullptr;
+  }
 
   container::number_elements--;
   if (pos == head_pointer) {
@@ -85,8 +87,9 @@ template <typename T> void doubly_linked_list<T>::push_back(T val) {
 }
 
 template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
-  if (empty())
+  if (empty()) {
     return;
+  }
 
   const auto prev = tail_pointer->prev.lock();
   if (prev != nullptr) {
