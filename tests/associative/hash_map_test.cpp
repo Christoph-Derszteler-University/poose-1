@@ -11,7 +11,7 @@ protected:
   using value_t = int;
   using hash_map_t = containers::associative::hash_map<key_t, value_t>;
 
-  constexpr static std::hash<key_t> hash_function;
+  static std::hash<key_t> hash_function;
   hash_map_t hash_map;
 
   hash_map_test() : hash_map(hash_function) {}
