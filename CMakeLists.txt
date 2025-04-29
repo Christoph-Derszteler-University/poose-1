@@ -22,7 +22,6 @@ add_link_options(-fsanitize=address)
 include_directories(include)
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-# add_executable(poose_1 ${SRC_FILES})
 add_executable(hash_map_example examples/associative/hash_map_example.cpp ${SRC_FILES})
 add_executable(hash_multi_map_example examples/associative/hash_multi_map_example.cpp ${SRC_FILES})
 add_executable(hash_set_example examples/associative/hash_set_example.cpp ${SRC_FILES})
