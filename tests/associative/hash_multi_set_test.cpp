@@ -12,7 +12,7 @@ protected:
 
   hash_multi_set_t hash_multi_set;
 
-  constexpr static std::hash<std::string> hash_function;
+  static std::hash<std::string> hash_function;
   hash_multi_set_test() : hash_multi_set(hash_function) {}
 
   void SetUp() override {
