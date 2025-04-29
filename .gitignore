@@ -7,6 +7,10 @@ result
 
 # CMake
 cmake-build-debug
+build
 
 # clangd
 .cache
+
+# Doxygen
+docs
