@@ -40,12 +40,15 @@
             packages = with pkgs; [
               nil
 
+              cmake
+
+              doxygen
+
+              meteor-git
+              just
+
               git
               meld # recommended by uni
-
-              stdenv.cc.cc.lib # libstdc++-dev
-              clang
-              cmake
 
               (python313.withPackages (
                 subpkgs: with subpkgs; [

@@ -8,6 +8,9 @@
       strict = true;
     };
 
+    # Just
+    just.enable = true;
+
     # C/C++
     clang-format.enable = true;
     cmake-format.enable = true;
