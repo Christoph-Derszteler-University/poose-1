@@ -32,22 +32,22 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
     return nullptr;
   }
 
-  const auto newNode = std::make_shared<node>(val);
+  const auto new_node = std::make_shared<node>(val);
 
   if (pos == head_pointer) {
-    newNode->next = head_pointer;
-    head_pointer->prev = newNode;
-    head_pointer = newNode;
+    new_node->next = head_pointer;
+    head_pointer->prev = new_node;
+    head_pointer = new_node;
   } else {
-    newNode->next = pos;
-    newNode->prev = pos->prev;
-    pos->prev.lock()->next = newNode;
-    pos->prev = newNode;
+    new_node->next = pos;
+    new_node->prev = pos->prev;
+    pos->prev.lock()->next = new_node;
+    pos->prev = new_node;
   }
 
   container::number_elements++;
 
-  return newNode;
+  return new_node;
 }
 
 template <typename T>
@@ -74,14 +74,14 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::erase(node_t pos) {
 }
 
 template <typename T> void doubly_linked_list<T>::push_back(T val) {
-  const auto newNode = std::make_shared<node>(val);
+  const auto new_node = std::make_shared<node>(val);
 
   if (empty()) {
-    head_pointer = tail_pointer = newNode;
+    head_pointer = tail_pointer = new_node;
   } else {
-    tail_pointer->next = newNode;
-    newNode->prev = tail_pointer;
-    tail_pointer = newNode;
+    tail_pointer->next = new_node;
+    new_node->prev = tail_pointer;
+    tail_pointer = new_node;
   }
   container::number_elements++;
 }
@@ -103,13 +103,13 @@ template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
 }
 
 template <typename T> void doubly_linked_list<T>::push_front(T val) {
-  const auto newNode = std::make_shared<node>(val);
+  const auto new_node = std::make_shared<node>(val);
   if (empty()) {
-    head_pointer = tail_pointer = newNode;
+    head_pointer = tail_pointer = new_node;
   } else {
-    newNode->next = head_pointer;
-    head_pointer->prev = newNode;
-    head_pointer = newNode;
+    new_node->next = head_pointer;
+    head_pointer->prev = new_node;
+    head_pointer = new_node;
   }
 
   container::number_elements++;
