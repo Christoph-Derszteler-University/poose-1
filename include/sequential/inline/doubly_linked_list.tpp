@@ -5,19 +5,19 @@ namespace containers::sequential {
 template <typename T> doubly_linked_list<T>::doubly_linked_list() = default;
 
 template <typename T>
-abstract_doubly_linked_list<T>::Node::Node(T value) : data(value){};
+abstract_doubly_linked_list<T>::node::node(T value) : data(value){};
 
 template <typename T> bool doubly_linked_list<T>::empty() const noexcept {
   return container::number_elements == 0;
 }
 
 template <typename T>
-doubly_linked_list<T>::Node_t doubly_linked_list<T>::front() const noexcept {
+doubly_linked_list<T>::node_t doubly_linked_list<T>::front() const noexcept {
   return m_head;
 }
 
 template <typename T>
-doubly_linked_list<T>::Node_t doubly_linked_list<T>::back() const noexcept {
+doubly_linked_list<T>::node_t doubly_linked_list<T>::back() const noexcept {
   return m_tail;
 }
 
@@ -27,11 +27,11 @@ template <typename T> void doubly_linked_list<T>::clear() noexcept {
 }
 
 template <typename T>
-doubly_linked_list<T>::Node_t doubly_linked_list<T>::insert(Node_t pos, T val) {
+doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
   if (pos == nullptr)
     return nullptr;
 
-  const auto newNode = std::make_shared<Node>(val);
+  const auto newNode = std::make_shared<node>(val);
 
   if (pos == m_head) {
     newNode->next = m_head;
@@ -50,7 +50,7 @@ doubly_linked_list<T>::Node_t doubly_linked_list<T>::insert(Node_t pos, T val) {
 }
 
 template <typename T>
-doubly_linked_list<T>::Node_t doubly_linked_list<T>::erase(Node_t pos) {
+doubly_linked_list<T>::node_t doubly_linked_list<T>::erase(node_t pos) {
   if (pos == nullptr)
     return nullptr;
 
@@ -72,7 +72,7 @@ doubly_linked_list<T>::Node_t doubly_linked_list<T>::erase(Node_t pos) {
 }
 
 template <typename T> void doubly_linked_list<T>::push_back(T val) {
-  const auto newNode = std::make_shared<Node>(val);
+  const auto newNode = std::make_shared<node>(val);
 
   if (empty()) {
     m_head = m_tail = newNode;
@@ -100,7 +100,7 @@ template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
 }
 
 template <typename T> void doubly_linked_list<T>::push_front(T val) {
-  const auto newNode = std::make_shared<Node>(val);
+  const auto newNode = std::make_shared<node>(val);
   if (empty()) {
     m_head = m_tail = newNode;
   } else {

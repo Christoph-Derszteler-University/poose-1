@@ -17,20 +17,20 @@ protected:
   /**
    * @brief Internal node structure for the doubly linked list.
    */
-  struct Node {
+  struct node {
     T data;                     ///< The data stored in the node.
-    std::shared_ptr<Node> next; ///< Pointer to the next node.
-    std::weak_ptr<Node> prev;   ///< Weak pointer to the previous node.
+    std::shared_ptr<node> next; ///< Pointer to the next node.
+    std::weak_ptr<node> prev;   ///< Weak pointer to the previous node.
 
     /**
      * @brief Construct a new Node with the given value.
      *
      * @param value The value to store in the node.
      */
-    Node(T value);
+    node(T value);
   };
 
-  using Node_t = std::shared_ptr<Node>;
+  using node_t = std::shared_ptr<node>;
 
   /**
    * @brief Virtual destructor to ensure proper cleanup in derived classes.
@@ -49,14 +49,14 @@ protected:
    *
    * @return A shared pointer to the front node.
    */
-  virtual Node_t front() const noexcept = 0;
+  virtual node_t front() const noexcept = 0;
 
   /**
    * @brief Returns the back node of the list.
    *
    * @return A shared pointer to the back node.
    */
-  virtual Node_t back() const noexcept = 0;
+  virtual node_t back() const noexcept = 0;
 
   /**
    * @brief Removes all elements from the list.
@@ -70,7 +70,7 @@ protected:
    * @param val The value to be inserted.
    * @return A shared pointer to the newly inserted node.
    */
-  virtual Node_t insert(Node_t pos, T val) = 0;
+  virtual node_t insert(node_t pos, T val) = 0;
 
   /**
    * @brief Removes the node at the specified position.
@@ -78,7 +78,7 @@ protected:
    * @param pos The node to remove.
    * @return A shared pointer to the next node after the removed node.
    */
-  virtual Node_t erase(Node_t pos) = 0;
+  virtual node_t erase(node_t pos) = 0;
 
   /**
    * @brief Appends an element to the back of the list.
@@ -116,11 +116,11 @@ protected:
 template <typename T>
 class doubly_linked_list : public abstract_doubly_linked_list<T> {
 private:
-  using Node = typename abstract_doubly_linked_list<T>::Node;
-  using Node_t = typename abstract_doubly_linked_list<T>::Node_t;
+  using node = typename abstract_doubly_linked_list<T>::node;
+  using node_t = typename abstract_doubly_linked_list<T>::node_t;
 
-  Node_t m_head; ///< Pointer to the head of the list.
-  Node_t m_tail; ///< Pointer to the tail of the list.
+  node_t m_head; ///< Pointer to the head of the list.
+  node_t m_tail; ///< Pointer to the tail of the list.
 
 public:
   /**
@@ -142,14 +142,14 @@ public:
    *
    * @return A shared pointer to the head node.
    */
-  Node_t front() const noexcept override;
+  node_t front() const noexcept override;
 
   /**
    * @brief Returns a pointer to the last node.
    *
    * @return A shared pointer to the tail node.
    */
-  Node_t back() const noexcept override;
+  node_t back() const noexcept override;
 
   /* Modifiers */
 
@@ -167,7 +167,7 @@ public:
    * @return A shared pointer to the newly inserted node, or nullptr if the
    * position is invalid.
    */
-  Node_t insert(Node_t pos, T val) override;
+  node_t insert(node_t pos, T val) override;
 
   /**
    * @brief Removes the node at the given position.
@@ -176,7 +176,7 @@ public:
    * @return A shared pointer to the next node after the removed one, or nullptr
    * if the position is invalid.
    */
-  Node_t erase(Node_t pos) override;
+  node_t erase(node_t pos) override;
 
   /**
    * @brief Adds an element to the end of the list.
