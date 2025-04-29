@@ -31,8 +31,6 @@ namespace containers::sequential{
         bool is_empty() const noexcept override;
 
         private:
-
-        size_t m_length;
         std::list<T> m_list;
     };
 }
