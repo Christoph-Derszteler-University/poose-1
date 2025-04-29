@@ -27,7 +27,7 @@ namespace containers::sequential{
         //! @copydoc abstract_queue::dequeue
         T dequeue() override;
 
-        //! @copydoc abstract_queue::isEmpty
+        //! @copydoc abstract_queue::is_empty
         bool is_empty() const noexcept override;
 
         private:
