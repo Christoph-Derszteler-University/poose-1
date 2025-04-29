@@ -119,8 +119,8 @@ private:
   using node = typename abstract_doubly_linked_list<T>::node;
   using node_t = typename abstract_doubly_linked_list<T>::node_t;
 
-  node_t m_head; ///< Pointer to the head of the list.
-  node_t m_tail; ///< Pointer to the tail of the list.
+  node_t head_pointer; ///< Pointer to the head of the list.
+  node_t tail_pointer; ///< Pointer to the tail of the list.
 
 public:
   /**

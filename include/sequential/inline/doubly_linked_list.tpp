@@ -13,16 +13,16 @@ template <typename T> bool doubly_linked_list<T>::empty() const noexcept {
 
 template <typename T>
 doubly_linked_list<T>::node_t doubly_linked_list<T>::front() const noexcept {
-  return m_head;
+  return head_pointer;
 }
 
 template <typename T>
 doubly_linked_list<T>::node_t doubly_linked_list<T>::back() const noexcept {
-  return m_tail;
+  return tail_pointer;
 }
 
 template <typename T> void doubly_linked_list<T>::clear() noexcept {
-  m_head = m_tail = nullptr;
+  head_pointer = tail_pointer = nullptr;
   container::number_elements = 0;
 }
 
@@ -33,10 +33,10 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
 
   const auto newNode = std::make_shared<node>(val);
 
-  if (pos == m_head) {
-    newNode->next = m_head;
-    m_head->prev = newNode;
-    m_head = newNode;
+  if (pos == head_pointer) {
+    newNode->next = head_pointer;
+    head_pointer->prev = newNode;
+    head_pointer = newNode;
   } else {
     newNode->next = pos;
     newNode->prev = pos->prev;
@@ -55,14 +55,14 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::erase(node_t pos) {
     return nullptr;
 
   container::number_elements--;
-  if (pos == m_head) {
-    m_head = pos->next;
+  if (pos == head_pointer) {
+    head_pointer = pos->next;
     pos->next = nullptr;
-    return m_head;
-  } else if (pos == m_tail) {
-    m_tail = pos->prev.lock();
+    return head_pointer;
+  } else if (pos == tail_pointer) {
+    tail_pointer = pos->prev.lock();
     pos->prev.lock()->next = nullptr;
-    return m_tail;
+    return tail_pointer;
   } else {
     const auto prev = pos->prev.lock();
     prev->next = pos->next;
@@ -75,11 +75,11 @@ template <typename T> void doubly_linked_list<T>::push_back(T val) {
   const auto newNode = std::make_shared<node>(val);
 
   if (empty()) {
-    m_head = m_tail = newNode;
+    head_pointer = tail_pointer = newNode;
   } else {
-    m_tail->next = newNode;
-    newNode->prev = m_tail;
-    m_tail = newNode;
+    tail_pointer->next = newNode;
+    newNode->prev = tail_pointer;
+    tail_pointer = newNode;
   }
   container::number_elements++;
 }
@@ -88,13 +88,13 @@ template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
   if (empty())
     return;
 
-  const auto prev = m_tail->prev.lock();
+  const auto prev = tail_pointer->prev.lock();
   if (prev != nullptr) {
     prev->next = nullptr;
   } else {
-    m_head = nullptr;
+    head_pointer = nullptr;
   }
-  m_tail = prev;
+  tail_pointer = prev;
 
   container::number_elements--;
 }
@@ -102,11 +102,11 @@ template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
 template <typename T> void doubly_linked_list<T>::push_front(T val) {
   const auto newNode = std::make_shared<node>(val);
   if (empty()) {
-    m_head = m_tail = newNode;
+    head_pointer = tail_pointer = newNode;
   } else {
-    newNode->next = m_head;
-    m_head->prev = newNode;
-    m_head = newNode;
+    newNode->next = head_pointer;
+    head_pointer->prev = newNode;
+    head_pointer = newNode;
   }
 
   container::number_elements++;
@@ -114,7 +114,7 @@ template <typename T> void doubly_linked_list<T>::push_front(T val) {
 
 template <typename T> void doubly_linked_list<T>::pop_front() noexcept {
   if (!empty()) {
-    m_head = m_head->next;
+    head_pointer = head_pointer->next;
     container::number_elements--;
   }
 }
