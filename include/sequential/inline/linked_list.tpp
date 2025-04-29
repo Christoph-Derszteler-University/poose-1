@@ -35,9 +35,7 @@ linked_list<Type>::node_t linked_list<Type>::erase_after(node_t pos) {
   }
 
   pos->next = pos->next->next;
-
   container::number_elements--;
-
   return pos->next;
 }
 
@@ -48,15 +46,11 @@ linked_list<Type>::node_t linked_list<Type>::insert_after(node_t pos,
     return nullptr;
 
   const auto after = std::make_shared<node>(val);
-
   const node_t temp = pos->next;
 
   pos->next = after;
-
   after->next = temp;
-
   container::number_elements++;
-
   return after;
 }
 
