@@ -42,6 +42,8 @@
 
               cmake
 
+              doxygen
+
               meteor-git
               just
 
