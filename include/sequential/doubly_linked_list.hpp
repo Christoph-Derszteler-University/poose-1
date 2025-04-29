@@ -128,78 +128,34 @@ public:
    */
   doubly_linked_list();
 
-  /**
-   * @brief Checks whether the list is empty.
-   *
-   * @return true if the list is empty, false otherwise.
-   */
+  /// @copydoc abstract_doubly_linked_list::empty
   bool empty() const noexcept override;
 
-  /* Element Access */
-
-  /**
-   * @brief Returns a pointer to the first node.
-   *
-   * @return A shared pointer to the head node.
-   */
+  /// @copydoc abstract_doubly_linked_list::front
   node_t front() const noexcept override;
 
-  /**
-   * @brief Returns a pointer to the last node.
-   *
-   * @return A shared pointer to the tail node.
-   */
+  /// @copydoc abstract_doubly_linked_list::back
   node_t back() const noexcept override;
 
-  /* Modifiers */
-
-  /**
-   * @brief Removes all elements from the list.
-   */
+  /// @copydoc abstract_doubly_linked_list::clear
   void clear() noexcept override;
 
-  /**
-   * @brief Inserts a new node with the specified value before the given
-   * position.
-   *
-   * @param pos The position before which to insert.
-   * @param val The value to insert.
-   * @return A shared pointer to the newly inserted node, or nullptr if the
-   * position is invalid.
-   */
+  /// @copydoc abstract_doubly_linked_list::insert
   node_t insert(node_t pos, T val) override;
 
-  /**
-   * @brief Removes the node at the given position.
-   *
-   * @param pos The node to remove.
-   * @return A shared pointer to the next node after the removed one, or nullptr
-   * if the position is invalid.
-   */
+  /// @copydoc abstract_doubly_linked_list::erase
   node_t erase(node_t pos) override;
 
-  /**
-   * @brief Adds an element to the end of the list.
-   *
-   * @param val The value to add.
-   */
+  /// @copydoc abstract_doubly_linked_list::push_back
   void push_back(T val) override;
 
-  /**
-   * @brief Removes the last element of the list.
-   */
+  /// @copydoc abstract_doubly_linked_list::pop_back
   void pop_back() noexcept override;
 
-  /**
-   * @brief Adds an element to the front of the list.
-   *
-   * @param val The value to add.
-   */
+  /// @copydoc abstract_doubly_linked_list::push_front
   void push_front(T val) override;
 
-  /**
-   * @brief Removes the first element of the list.
-   */
+  /// @copydoc abstract_doubly_linked_list::pop_front
   void pop_front() noexcept override;
 };
 
