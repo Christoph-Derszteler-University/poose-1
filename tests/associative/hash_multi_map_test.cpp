@@ -13,7 +13,7 @@ protected:
 
   hash_multi_map_t hash_multi_map;
 
-  constexpr static std::hash<std::string> hash_function;
+  static std::hash<std::string> hash_function;
   hash_multi_map_test() : hash_multi_map(hash_function) {}
 
   void SetUp() override {
