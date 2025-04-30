@@ -14,4 +14,7 @@ namespace containers::sequential {
         container::number_elements -= 1;
         return tmp;
     }
+    template <typename T> const T& list_stack<T>::top() const {
+        return m_list.front();
+    }
 }
