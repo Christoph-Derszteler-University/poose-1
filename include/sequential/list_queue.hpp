@@ -27,9 +27,6 @@ namespace containers::sequential{
         //! @copydoc abstract_queue::dequeue
         T dequeue() override;
 
-        //! @copydoc abstract_queue::is_empty
-        bool is_empty() const noexcept override;
-
         private:
         std::list<T> m_list;
     };

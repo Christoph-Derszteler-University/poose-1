@@ -14,7 +14,4 @@ namespace containers::sequential {
         container::number_elements -= 1;
         return tmp;
     }
-    template <typename T> bool list_stack<T>::is_empty() const noexcept {
-        return container::number_elements == 0;
-    }
 }

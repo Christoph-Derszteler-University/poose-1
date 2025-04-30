@@ -19,11 +19,5 @@ namespace containers::sequential {
          * @return a value of Type data
          */
         virtual T pop() = 0;
-
-        /**
-         * @brief Checks if the container is empty
-         * @return True if empty, False else
-         */
-        virtual bool is_empty() const noexcept = 0;
     };
 }

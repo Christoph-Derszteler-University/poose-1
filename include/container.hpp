@@ -17,7 +17,14 @@ namespace containers {
      * @return The size of the container.
      * @note This method has a runtime complexity of O(1).
      */
-    [[nodiscard]] size_t size() const;
+    [[nodiscard]] size_t size() const noexcept;
+
+    /**
+    * @brief Returns whether the container is empty or not
+    * @return true if number_elements is greater than 0 else 0
+    * @note This method has a runtime complexity of O(1).
+    */
+    [[nodiscard]] bool empty() const noexcept;
   protected:
     size_t number_elements = 0;
   };
