@@ -1,4 +1,5 @@
 #include "sequential/list_stack.hpp"
+#include "sequential/empty_container.hpp"
 
 namespace containers::sequential {
 
@@ -9,12 +10,18 @@ namespace containers::sequential {
         container::number_elements++;
     }
     template <typename T> T list_stack<T>::pop() {
+        if (m_list.empty()){
+            throw empty_container;
+        }
         T tmp = m_list.front();
         m_list.pop_front();
         container::number_elements -= 1;
         return tmp;
     }
     template <typename T> const T& list_stack<T>::top() const {
+        if (m_list.empty()){
+            throw empty_container;
+        }
         return m_list.front();
     }
 }
