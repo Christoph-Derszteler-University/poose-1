@@ -46,7 +46,6 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 include(GoogleTest)
 
-
 # Associative containers tests
 add_executable(hash_set_test tests/associative/hash_set_test.cpp ${SRC_FILES})
 target_link_libraries(hash_set_test GTest::gtest_main)
