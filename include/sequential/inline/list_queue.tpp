@@ -14,4 +14,7 @@ namespace containers::sequential {
         container::number_elements--;
         return tmp;
     }
+    template <typename T> T list_queue<T>::front(){
+        return m_list.front();
+    }
 }
