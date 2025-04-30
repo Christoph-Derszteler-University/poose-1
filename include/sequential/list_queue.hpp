@@ -28,7 +28,7 @@ namespace containers::sequential{
         T dequeue() override;
 
         //! @copydoc abstract-queue::front
-        T front() override;
+        const T& front() const override;
 
         private:
         std::list<T> m_list;

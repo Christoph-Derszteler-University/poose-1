@@ -23,6 +23,6 @@ namespace containers::sequential {
          *  @brief Returns the value at front of the container
          *  @return The first value (Type T) of the container
          */
-        virtual T front() = 0;
+        virtual const T& front() const = 0;
     };
 }
