@@ -149,29 +149,93 @@ public:
   void pop_front() noexcept override;
 
 public:
+  /**
+   * @brief Iterator class for traversing the list.
+   *
+   * Provides forward and backward iteration over the elements of the list.
+   */
   class iterator {
   private:
     using node_t = abstract_doubly_linked_list<T>::node_t;
-    node_t current;
+    node_t current; ///< Pointer to the current node.
 
   public:
+    /**
+     * @brief Default constructor.
+     */
     iterator();
+
+    /**
+     * @brief Construct an iterator pointing to the given node.
+     * @param ptr Pointer to the node to wrap.
+     */
     explicit iterator(node_t ptr);
 
+    /**
+     * @brief Dereference operator.
+     * @return Reference to the data in the current node.
+     */
     T &operator*() const;
+
+    /**
+     * @brief Arrow operator.
+     * @return Pointer to the data in the current node.
+     */
     T *operator->() const;
 
+    /**
+     * @brief Pre-increment operator.
+     * @return Reference to the incremented iterator.
+     */
     iterator &operator++();
+
+    /**
+     * @brief Post-increment operator.
+     * @return Copy of the iterator before incrementing.
+     */
     iterator operator++(int);
 
+    /**
+     * @brief Pre-decrement operator.
+     * @return Reference to the decremented iterator.
+     */
     iterator &operator--();
+
+    /**
+     * @brief Post-decrement operator.
+     * @return Copy of the iterator before decrementing.
+     */
     iterator operator--(int);
 
+    /**
+     * @brief Equality operator.
+     * @param other The iterator to compare against.
+     * @return True if both iterators point to the same node.
+     */
     bool operator==(const iterator &other) const;
+
+    /**
+     * @brief Inequality operator.
+     * @param other The iterator to compare against.
+     * @return True if the iterators point to different nodes.
+     */
     bool operator!=(const iterator &other) const;
   };
 
+  /**
+   * @brief Returns an iterator to the beginning of the list.
+   *
+   * @return Iterator pointing to the first element.
+   */
   iterator begin() const;
+
+  /**
+   * @brief Returns an iterator to the end of the list.
+   *
+   * This iterator is one past the last element.
+   *
+   * @return Iterator pointing past the last element.
+   */
   iterator end() const;
 };
 } // namespace containers::sequential
