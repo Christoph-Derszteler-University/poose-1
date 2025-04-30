@@ -7,10 +7,6 @@ template <typename Type> linked_list<Type>::linked_list() = default;
 template <typename Type>
 abstract_linked_list<Type>::node::node(Type value) : data(value){};
 
-template <typename Type> bool linked_list<Type>::empty() const noexcept {
-  return container::number_elements == 0;
-}
-
 template <typename Type> void linked_list<Type>::clear() noexcept {
   head = nullptr;
   container::number_elements = 0;

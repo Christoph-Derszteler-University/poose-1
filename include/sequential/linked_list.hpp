@@ -34,10 +34,6 @@ protected:
   /// @brief Virtual destructor for cleanup in derived classes.
   virtual ~abstract_linked_list() override = default;
 
-  /// @brief Checks whether the list is empty.
-  /// @return True if the list is empty, false otherwise.
-  virtual bool empty() const noexcept = 0;
-
   /// @brief Removes all elements from the list.
   virtual void clear() noexcept = 0;
 
@@ -93,9 +89,6 @@ private:
 public:
   /// @brief Constructs an empty linked list.
   linked_list();
-
-  /// @copydoc abstract_linked_list::empty
-  bool empty() const noexcept override;
 
   /// @copydoc abstract_linked_list::clear
   void clear() noexcept override;
