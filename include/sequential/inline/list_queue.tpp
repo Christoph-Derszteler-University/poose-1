@@ -11,7 +11,7 @@ namespace containers::sequential {
     }
     template <typename T> T list_queue<T>::dequeue(){
         if (m_list.empty()){
-            throw empty_container;
+            throw empty_container();
         }
         T tmp = m_list.front();
         m_list.pop_front();
@@ -20,13 +20,13 @@ namespace containers::sequential {
     }
     template <typename T> const T& list_queue<T>::front() const{
         if (m_list.empty()){
-            throw empty_container;
+            throw empty_container();
         }
         return m_list.front();
     }
     template <typename T> const T& list_queue<T>::back() const {
         if (m_list.empty()){
-            throw empty_container;
+            throw empty_container();
         }
         return m_list.back();
 
