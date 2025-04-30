@@ -1,10 +1,8 @@
 #include "sequential/empty_container.hpp"
 
 namespace containers::sequential{
-class empty_container : public std::exception {
-    public:
-      const char* what() const noexcept override {
+
+      const char* empty_container::what() const noexcept {
         return "Operation on empty container is not allowed";
-      }
-    };    
+      }    
 }
