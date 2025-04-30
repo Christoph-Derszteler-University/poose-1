@@ -12,7 +12,7 @@ int main() {
 
   std::cout << list.size() << std::endl;
 
-  for (auto node = list.front(); node != nullptr; node = node->next) {
-    std::cout << node->data << " ";
+  for (const auto &node : list) {
+    std::cout << node << " ";
   }
 }

@@ -58,4 +58,55 @@ template <typename Type> void linked_list<Type>::pop_front() {
   head = head->next;
   container::number_elements--;
 }
+
+template <typename Type>
+linked_list<Type>::iterator linked_list<Type>::begin() const { return iterator(head); }
+
+template <typename Type>
+linked_list<Type>::iterator linked_list<Type>::end() const { return iterator(); }
+
+template <typename Type>
+linked_list<Type>::iterator::iterator() = default;
+
+template <typename Type>
+linked_list<Type>::iterator::iterator(node_t ptr) : current(ptr) {}
+
+template <typename Type>
+Type&
+linked_list<Type>::iterator::operator*() const {
+  return current->data;
+}
+
+template <typename Type>
+Type*
+linked_list<Type>::iterator::operator->() const {
+  return &current->data;
+}
+
+template <typename Type>
+typename linked_list<Type>::iterator&
+linked_list<Type>::iterator::operator++() {
+  if (current != nullptr) {
+    current = current->next;
+  }
+  return *this;
+}
+
+template <typename Type>
+typename linked_list<Type>::iterator&
+linked_list<Type>::iterator::operator++(int) {
+  iterator temp = *this;
+  ++(*this);
+  return temp;
+}
+
+template <typename Type>
+bool linked_list<Type>::iterator::operator==(const iterator& other) const {
+  return current == other.current;
+}
+
+template <typename Type>
+bool linked_list<Type>::iterator::operator!=(const iterator& other) const {
+  return !(*this == other);
+}
 } // namespace containers::sequential

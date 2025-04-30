@@ -12,8 +12,7 @@ namespace containers::sequential {
 /// deletion, and traversal using smart pointers.
 ///
 /// @tparam Type The type of elements stored in the list.
-template <typename Type>
-class abstract_linked_list : public container {
+template <typename Type> class abstract_linked_list : public container {
 protected:
   /// @brief Internal node structure used in the linked list.
   struct node {
@@ -38,7 +37,8 @@ protected:
   virtual void clear() noexcept = 0;
 
   /// @brief Returns a shared pointer to the first node in the list.
-  /// @return A shared pointer to the front node, or nullptr if the list is empty.
+  /// @return A shared pointer to the front node, or nullptr if the list is
+  /// empty.
   virtual node_t front() const noexcept = 0;
 
   /// @brief Inserts a new element at the beginning of the list.
@@ -76,8 +76,7 @@ protected:
 /// smart pointers.
 ///
 /// @tparam Type The type of elements stored in the list.
-template <typename Type>
-class linked_list : public abstract_linked_list<Type> {
+template <typename Type> class linked_list : public abstract_linked_list<Type> {
 private:
   using node = abstract_linked_list<Type>::node;
   /// @copydoc abstract_linked_list::node_t
@@ -107,9 +106,60 @@ public:
 
   /// @copydoc abstract_linked_list::insert_after
   node_t insert_after(node_t pos, Type val) override;
+
+public:
+  /// @brief Iterator class for singly linked list traversal.
+  class iterator {
+  private:
+    /// @copydoc abstract_linked_list::node_t
+    using node_t = abstract_linked_list<Type>::node_t;
+    /// @brief Pointer to the current node in the iteration.
+    node_t current;
+
+  public:
+    /// @brief Constructs an iterator pointing to nullptr.
+    iterator();
+
+    /// @brief Constructs an iterator pointing to the given node.
+    /// @param ptr Shared pointer to the node to begin iteration from.
+    explicit iterator(node_t ptr);
+
+    /// @brief Dereference operator to access the value of the current node.
+    /// @return Reference to the data of the current node.
+    Type &operator*() const;
+
+    /// @brief Member access operator to access the current node’s value.
+    /// @return Pointer to the data of the current node.
+    Type *operator->() const;
+
+    /// @brief Pre-increment: advances the iterator to the next node.
+    /// @return Reference to the incremented iterator.
+    iterator &operator++();
+
+    /// @brief Post-increment: advances the iterator and returns previous state.
+    /// @return Iterator before incrementing.
+    iterator &operator++(int);
+
+    /// @brief Checks whether two iterators are equal.
+    /// @param other The iterator to compare with.
+    /// @return True if both iterators point to the same node.
+    bool operator==(const iterator &other) const;
+
+    /// @brief Checks whether two iterators are not equal.
+    /// @param other The iterator to compare with.
+    /// @return True if the iterators point to different nodes.
+    bool operator!=(const iterator &other) const;
+  };
+
+  /// @brief Returns an iterator to the beginning of the list.
+  /// @return Iterator pointing to the first element of the list.
+  iterator begin() const;
+
+  /// @brief Returns an iterator to the end of the list (nullptr).
+  /// @return Iterator representing the end of the list.
+  iterator end() const;
 };
 
 } // namespace containers::sequential
 
 #include <sequential/inline/linked_list.tpp>
-
