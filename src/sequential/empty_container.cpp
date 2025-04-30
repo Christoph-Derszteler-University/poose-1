@@ -3,6 +3,6 @@
 namespace containers::sequential{
 
       const char* empty_container::what() const noexcept {
-        return "This operation on empty container is not allowed";
+        return "This operation on  an empty container is not allowed";
       }    
 }
