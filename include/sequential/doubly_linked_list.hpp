@@ -147,8 +147,33 @@ public:
 
   /// @copydoc abstract_doubly_linked_list::pop_front
   void pop_front() noexcept override;
-};
 
+public:
+  class iterator {
+  private:
+    using node_t = abstract_doubly_linked_list<T>::node_t;
+    node_t current;
+
+  public:
+    iterator();
+    explicit iterator(node_t ptr);
+
+    T &operator*() const;
+    T *operator->() const;
+
+    iterator &operator++();
+    iterator operator++(int);
+
+    iterator &operator--();
+    iterator operator--(int);
+
+    bool operator==(const iterator &other) const;
+    bool operator!=(const iterator &other) const;
+  };
+
+  iterator begin() const;
+  iterator end() const;
+};
 } // namespace containers::sequential
 
 #include <sequential/inline/doubly_linked_list.tpp>

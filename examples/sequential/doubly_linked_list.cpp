@@ -23,7 +23,7 @@ int main() {
 
   std::cout << list.size() << std::endl;
 
-  for (auto head = list.front(); head != nullptr; head = head->next) {
-    std::cout << head->data << " ";
+  for (const auto &node : list) {
+    std::cout << node << " ";
   }
 }

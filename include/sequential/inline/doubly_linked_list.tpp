@@ -116,4 +116,70 @@ template <typename T> void doubly_linked_list<T>::pop_front() noexcept {
     container::number_elements--;
   }
 }
+
+template <typename T>
+doubly_linked_list<T>::iterator doubly_linked_list<T>::begin() const {
+  return iterator(head_pointer);
+}
+
+template <typename T>
+doubly_linked_list<T>::iterator doubly_linked_list<T>::end() const {
+  return iterator();
+}
+
+template <typename T> doubly_linked_list<T>::iterator::iterator() = default;
+
+template <typename T>
+doubly_linked_list<T>::iterator::iterator(node_t ptr) : current(ptr) {}
+
+template <typename T> T &doubly_linked_list<T>::iterator::operator*() const {
+  return current->data;
+}
+
+template <typename T> T *doubly_linked_list<T>::iterator::operator->() const {
+  return &current->data;
+}
+
+template <typename T>
+typename doubly_linked_list<T>::iterator &
+doubly_linked_list<T>::iterator::operator++() {
+  if (current != nullptr) {
+    current = current->next;
+  }
+  return *this;
+}
+
+template <typename T>
+typename doubly_linked_list<T>::iterator
+doubly_linked_list<T>::iterator::operator++(int) {
+  iterator tmp = *this;
+  ++(*this);
+  return tmp;
+}
+
+template <typename T>
+doubly_linked_list<T>::iterator &doubly_linked_list<T>::iterator::operator--() {
+  if (current != nullptr) {
+    current = current->prev.lock();
+  }
+  return *this;
+}
+
+template <typename T>
+doubly_linked_list<T>::iterator
+doubly_linked_list<T>::iterator::operator--(int) {
+  iterator tmp = *this;
+  --(*this);
+  return tmp;
+}
+
+template <typename T>
+bool doubly_linked_list<T>::iterator::operator==(const iterator &other) const {
+  return current == other.current;
+}
+
+template <typename T>
+bool doubly_linked_list<T>::iterator::operator!=(const iterator &other) const {
+  return !(*this == other);
+}
 } // namespace containers::sequential
