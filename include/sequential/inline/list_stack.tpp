@@ -13,7 +13,7 @@ namespace containers::sequential {
         if (m_list.empty()){
             throw empty_container();
         }
-        T tmp = m_list.front();
+        const auto& tmp = m_list.front();
         m_list.pop_front();
         container::number_elements -= 1;
         return tmp;
