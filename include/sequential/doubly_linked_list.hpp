@@ -38,13 +38,6 @@ protected:
   virtual ~abstract_doubly_linked_list() override = default;
 
   /**
-   * @brief Checks if the list is empty.
-   *
-   * @return true if empty, false otherwise.
-   */
-  virtual bool empty() const noexcept = 0;
-
-  /**
    * @brief Returns the front node of the list.
    *
    * @return A shared pointer to the front node.
@@ -127,9 +120,6 @@ public:
    * @brief Construct a new, empty doubly linked list.
    */
   doubly_linked_list();
-
-  /// @copydoc abstract_doubly_linked_list::empty
-  bool empty() const noexcept override;
 
   /// @copydoc abstract_doubly_linked_list::front
   node_t front() const noexcept override;
