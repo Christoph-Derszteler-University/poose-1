@@ -24,5 +24,10 @@ namespace containers::sequential {
          *  @return The first value (Type T) of the container
          */
         virtual const T& front() const = 0;
+        /**
+         * @brief Returns the value at the back of the container
+         * @return The last value (Type T)
+         */
+        virtual const T& back() const = 0;
     };
 }

@@ -24,4 +24,11 @@ namespace containers::sequential {
         }
         return m_list.front();
     }
+    template <typename T> const T& list_queue<T>::back() const {
+        if (m_list.empty()){
+            throw empty_container;
+        }
+        return m_list.back();
+
+    }
 }
