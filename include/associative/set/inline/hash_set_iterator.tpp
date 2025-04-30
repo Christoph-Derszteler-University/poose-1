@@ -56,7 +56,6 @@ namespace containers::associative {
     const int& base_index
   ) {
     auto first_non_empty = buckets.size();
-    buckets.size();
     for (size_t index = base_index + 1; index < buckets.size(); ++index) {
       // TODO: Why does this work? What if 'Bucket' is no vector, existence of .empty() is not guaranteed?
       if (!buckets[index].empty()) {
