@@ -15,7 +15,7 @@ int main() {
     int vorne = my_int_stack.pop();
     std::cout << "Das oberste Element auf dem Stack war " << vorne << std::endl;
 
-    if (my_int_stack.isEmpty()) {
+    if (my_int_stack.is_empty()) {
         std::cout << "Der Stack ist leer" << std::endl;
     } else {
         std::cout << "Der Stack ist noch nicht leer" << std::endl;
