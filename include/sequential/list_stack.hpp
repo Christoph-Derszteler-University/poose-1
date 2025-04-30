@@ -20,6 +20,9 @@ namespace containers::sequential {
 
         //! @copydoc abtract_stack::pop
         T pop() override;
+
+        //! @copydoc abstract_stack::top
+        const T& top() const override;
     };
 }
 

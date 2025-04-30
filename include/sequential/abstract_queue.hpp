@@ -19,5 +19,15 @@ namespace containers::sequential {
          * @return a value of Type data
          */
         virtual T dequeue() = 0;
+        /**
+         *  @brief Returns the value at front of the container
+         *  @return The first value (Type T) of the container
+         */
+        virtual const T& front() const = 0;
+        /**
+         * @brief Returns the value at the back of the container
+         * @return The last value (Type T)
+         */
+        virtual const T& back() const = 0;
     };
 }

@@ -16,8 +16,14 @@ namespace containers::sequential {
 
         /**
          * @brief Deletes & returns the value at front of the container
-         * @return a value of Type data
+         * @return a value of Type T
          */
         virtual T pop() = 0;
+
+        /**
+         * @brief Returns the value at front of the container without deleting
+         * @return A value of Type T
+         */
+        virtual const T& top() const = 0;
     };
 }
