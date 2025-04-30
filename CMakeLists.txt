@@ -31,7 +31,6 @@ add_executable(hash_map_example examples/associative/hash_map_example.cpp ${SRC_
 add_executable(hash_multi_map_example examples/associative/hash_multi_map_example.cpp ${SRC_FILES})
 add_executable(hash_set_example examples/associative/hash_set_example.cpp ${SRC_FILES})
 add_executable(hash_multi_set_example examples/associative/hash_multi_set_example.cpp ${SRC_FILES})
-add_executable(linked_list examples/linked_list.cpp ${SRC_FILES})
 
 # Tests
 
