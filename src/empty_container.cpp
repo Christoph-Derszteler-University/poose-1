@@ -1,8 +1,8 @@
 #include "sequential/empty_container.hpp"
 
-namespace containers::sequential{
+namespace containers{
 
       const char* empty_container::what() const noexcept {
-        return "Operation on empty container is not allowed";
+        return "This operation on empty container is not allowed";
       }    
 }
