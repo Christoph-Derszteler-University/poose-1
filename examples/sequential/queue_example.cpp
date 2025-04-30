@@ -22,7 +22,7 @@ int main() {
 
     //TODO: Make example suitable for presentation
     my_str_queue.enqueue("alright mate! queues not empty");
-    if (my_str_queue.is_empty()) {
+    if (my_str_queue.empty()) {
         std::cout << "queue ist empty" << std::endl;
     }
     std::string str = my_str_queue.dequeue();
