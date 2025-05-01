@@ -61,3 +61,5 @@ gtest_discover_tests(hash_set_test hash_map_test hash_multi_set_test hash_multi_
 # Sequential containers tests
 add_executable(stack_test tests/sequential/stack_test.cpp ${SRC_FILES})
 target_link_libraries(stack_test GTest::gtest_main)
+add_executable(queue_test tests/sequential/stack_test.cpp ${SRC_FILES})
+target_link_libraries(queue_test GTest::gtest_main)
