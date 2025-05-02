@@ -13,8 +13,7 @@ protected:
 
   hash_multi_map_t hash_multi_map;
 
-  static std::hash<std::string> hash_function;
-  hash_multi_map_test() : hash_multi_map(hash_function) {}
+  hash_multi_map_test() : hash_multi_map(std::hash<key_t>()) {}
 
   void SetUp() override {
     hash_multi_map.insert("key1", 1);

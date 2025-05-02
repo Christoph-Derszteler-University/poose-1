@@ -9,10 +9,9 @@ protected:
   using key_t = std::string;
   using hash_set_t = containers::associative::hash_set<key_t>;
 
-  static std::hash<std::string> hash_function;
   hash_set_t hash_set;
 
-  hash_set_test() : hash_set(hash_function) {}
+  hash_set_test() : hash_set(std::hash<std::string>()) {}
 
   void SetUp() override {
     hash_set.insert("key1");

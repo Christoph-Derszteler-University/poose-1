@@ -12,8 +12,7 @@ protected:
 
   hash_multi_set_t hash_multi_set;
 
-  static std::hash<std::string> hash_function;
-  hash_multi_set_test() : hash_multi_set(hash_function) {}
+  hash_multi_set_test() : hash_multi_set(std::hash<key_t>()) {}
 
   void SetUp() override {
     hash_multi_set.insert("key1");
