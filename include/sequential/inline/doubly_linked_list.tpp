@@ -125,13 +125,11 @@ template<typename T> T& doubly_linked_list<T>::at(size_t idx) const {
   auto it = iterator();
   if (idx < static_cast<size_t>(container::number_elements / 2)) {
     it = iterator(head_pointer);
-    std::cout << "CORRECT" << std::endl;
     for (size_t current_idx = 0; current_idx < idx; current_idx++) {
       it++;
     }
   } else {
     it = iterator(tail_pointer);
-    std::cout << "WRONG" << std::endl;
     for (size_t current_idx = container::number_elements - idx - 1; current_idx > 0; current_idx--) {
       it--;
     }
