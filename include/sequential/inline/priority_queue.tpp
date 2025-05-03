@@ -1,62 +1,65 @@
 namespace containers::sequential {
-template <typename T, typename Compare>
-priority_queue<T, Compare>::priority_queue() {}
 
-template <typename T, typename Compare>
-void priority_queue<T, Compare>::push(const T& value) {
-    heap.push_back(value);
-    container::number_elements++;
-    heapifyUp(container::number_elements - 1);
+template <typename T> priority_queue<T>::priority_queue() = default;
+
+template <typename T> void priority_queue<T>::push(const T &value) {
+  heap.push_back(value);
+  container::number_elements++;
+  heapifyUp(container::number_elements - 1);
 }
 
-template <typename T, typename Compare>
-void priority_queue<T, Compare>::pop() {
-    if (container::empty()) {
-      return;
-    }
+template <typename T> void priority_queue<T>::pop() {
+  if (container::empty()) {
+    throw std::out_of_range("PriorityQueue is empty.");
+  }
 
-    std::swap(heap.front(), heap.back());
-    heap.pop_back();
-    container::number_elements++;
+  std::swap(heap.front()->data, heap.back()->data);
+  heap.pop_back();
+  container::number_elements--;
+  if (!heap.empty()) {
     heapifyDown(0);
+  }
 }
 
-template <typename T, typename Compare>
-const T& priority_queue<T, Compare>::top() const {
-    return heap.front();
+template <typename T> const T &priority_queue<T>::top() const {
+  if (heap.empty()) {
+    throw std::out_of_range("PriorityQueue is empty.");
+  }
+  return heap.front()->data;
 }
 
-template <typename T, typename Compare>
-void priority_queue<T, Compare>::heapifyUp(std::size_t index) {
-    while (index > 0) {
-        std::size_t parent = (index - 1) / 2;
-        if (!comp(heap[index], heap[parent])) {
-          break;
-        }
-
-        std::swap(heap[index], heap[parent]);
-        index = parent;
+template <typename T> void priority_queue<T>::heapifyUp(std::size_t index) {
+  while (index > 0) {
+    size_t parent = (index - 1) / 2;
+    // if heap[parent] < heap[index], swap for max-heap
+    if (heap.at(parent)->data < heap.at(index)->data) {
+      std::swap(heap.at(parent)->data, heap.at(index)->data);
+      index = parent;
+    } else {
+      break;
     }
+  }
 }
 
-template <typename T, typename Compare>
-void priority_queue<T, Compare>::heapifyDown(std::size_t index) {
-    std::size_t size = container::number_elements;
-    while (index * 2 + 1 < size) {
-      std::size_t left = index * 2 + 1;
-      std::size_t right = index * 2 + 2;
-      std::size_t smallest = left;
+template <typename T> void priority_queue<T>::heapifyDown(std::size_t index) {
+  size_t n = container::number_elements;
+  while (true) {
+    size_t left = 2 * index + 1;
+    size_t right = 2 * index + 2;
+    size_t largest = index;
 
-      if (right < size && comp(heap[right], heap[left])) {
-        smallest = right;
-      }
-
-      if (!comp(heap[smallest], heap[index])) {
-        break;
-      }
-
-      std::swap(heap[index], heap[smallest]);
-      index = smallest;
+    if (left < n && heap.at(largest)->data < heap.at(left)->data) {
+      largest = left;
     }
+    if (right < n && heap.at(largest)->data < heap.at(right)->data) {
+      largest = right;
+    }
+    if (largest != index) {
+      std::swap(heap.at(index)->data, heap.at(largest)->data);
+      index = largest;
+    } else {
+      break;
+    }
+  }
 }
-}
+} // namespace containers::sequential
