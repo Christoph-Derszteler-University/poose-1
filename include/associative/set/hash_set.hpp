@@ -72,8 +72,7 @@ namespace containers::associative {
 
   private:
     const std::function<hash_t(const Key&)> hash_function;
-    sequential::doubly_linked_list<bucket_t> buckets;
-    std::shared_ptr<sequential::doubly_linked_list<bucket_t>> buckets_pointer;
+    std::shared_ptr<sequential::doubly_linked_list<bucket_t>> buckets_ptr;
 
     void insert_with_optional_throw(const Key& key, bool throw_exception);
 
