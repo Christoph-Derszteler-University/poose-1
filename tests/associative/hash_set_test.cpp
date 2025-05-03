@@ -88,3 +88,10 @@ TEST_F(hash_set_test, IteratorEqualityIsCorrect) {
   EXPECT_EQ(second, comparison.begin()) << "equal iterators of the same container must be equal";
   EXPECT_NE(first, second) << "iterators at the same position of two different containers must not be equal";
 }
+
+TEST_F(hash_set_test, ConceptAssertIterator) {
+  static_assert(
+    std::forward_iterator<containers::associative::hash_set_iterator<containers::sequential::doubly_linked_list<std::pair<std::string, containers::hash_t>>, std::string>>,
+    "hash_set_iterator must satisfy std::forward_iterator"
+  );
+}

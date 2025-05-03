@@ -11,6 +11,7 @@ namespace containers::associative {
     using difference_type = std::ptrdiff_t;
     using value_type = std::pair<Key, Value>;
 
+    hash_map_iterator();
     hash_map_iterator(
       const std::shared_ptr<sequential::doubly_linked_list<Bucket>>& ptr,
       const size_t& outer_index,
@@ -39,15 +40,6 @@ namespace containers::associative {
     std::shared_ptr<sequential::doubly_linked_list<Bucket>> ptr;
     size_t outer_index;
     size_t inner_index;
-  };
-
-  // TODO: Fix. Assert is never executed
-  template<typename Bucket, typename Key, typename Value>
-  struct validate_iterator {
-    static_assert(
-      std::forward_iterator<hash_map_iterator<Bucket, Key, Value>>,
-      "hash_map_iterator must satisfy std::forward_iterator"
-    );
   };
 }
 

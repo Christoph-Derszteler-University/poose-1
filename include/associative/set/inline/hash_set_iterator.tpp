@@ -3,6 +3,10 @@
 
 namespace containers::associative {
   template<typename Bucket, typename Key>
+  hash_set_iterator<Bucket, Key>::hash_set_iterator()
+    : ptr(nullptr), outer_index(0), inner_index(0) {}
+
+  template<typename Bucket, typename Key>
   hash_set_iterator<Bucket, Key>::hash_set_iterator(
     const std::shared_ptr<sequential::doubly_linked_list<Bucket>>& ptr,
     const size_t& outer_index,
@@ -31,17 +35,9 @@ namespace containers::associative {
 
   template<typename Bucket, typename Key>
   hash_set_iterator<Bucket, Key> hash_set_iterator<Bucket, Key>::operator++(int) {
-    const auto temporary = *this;
-    const auto new_inner_index = inner_index + 1;
-    if (new_inner_index >= ptr->at(outer_index).size()) {
-      const auto new_outer_index = calculate_next_non_empty_bucket_index(*ptr, outer_index);
-
-      inner_index = 0;
-      outer_index = new_outer_index >= ptr->size() ? ptr->size() : new_outer_index;
-      return temporary;
-    }
-    inner_index = new_inner_index;
-    return temporary;
+    auto tmp = *this;
+    ++*this;
+    return tmp;
   }
 
   template<typename Bucket, typename Key>
