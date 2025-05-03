@@ -62,6 +62,7 @@ TEST_F(hash_set_test, RemoveNonExistingKeyDoesNotThrow) {
 
 TEST_F(hash_set_test, IteratorBeginPointsToFirstElement) {
   const auto& it = hash_set.begin();
+  EXPECT_EQ(it, hash_set.begin());
   EXPECT_NE(it, hash_set.end());
 }
 
@@ -74,4 +75,23 @@ TEST_F(hash_set_test, ConstIteratorWorksCorrectly) {
   const auto& const_hash_set = hash_set;
   const auto& it = const_hash_set.cbegin();
   EXPECT_NE(it, const_hash_set.cend());
+}
+
+TEST_F(hash_set_test, IteratorEqualityIsCorrect) {
+  auto comparison = containers::associative::hash_set<std::string>(std::hash<std::string>());
+  comparison.insert("key5");
+  comparison.insert("key3");
+  const auto& first = hash_set.begin();
+  const auto& second = comparison.begin();
+
+  EXPECT_EQ(first, hash_set.begin()) << "equal iterators of the same container must be equal";
+  EXPECT_EQ(second, comparison.begin()) << "equal iterators of the same container must be equal";
+  EXPECT_NE(first, second) << "iterators at the same position of two different containers must not be equal";
+}
+
+TEST_F(hash_set_test, ConceptAssertIterator) {
+  static_assert(
+    std::forward_iterator<containers::associative::hash_set_iterator<containers::sequential::doubly_linked_list<std::pair<std::string, containers::hash_t>>, std::string>>,
+    "hash_set_iterator must satisfy std::forward_iterator"
+  );
 }

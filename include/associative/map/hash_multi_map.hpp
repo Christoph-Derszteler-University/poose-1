@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include <functional>
 
 #include "associative_multi_map.hpp"
@@ -20,8 +19,8 @@ namespace containers::associative {
    * @tparam Value The type of the values associated with the keys.
    *
    * @details
-   * - The multi-map uses a vector of buckets, where each bucket is a vector of
-   *   tuples containing the key, value, and the computed hash.
+   * - The multi-map uses a doubly linked list of buckets, where each bucket is
+   *   a doubly linked list of tuples containing the key, value, and the computed hash.
    * - The number of buckets can grow dynamically to maintain a low load factor,
    *   ensuring efficient operations.
    * - The class supports operations such as insertion, key lookup, and removal
@@ -34,7 +33,7 @@ namespace containers::associative {
   template<typename Key, typename Value>
   class hash_multi_map final : public associative_multi_map<Key, Value> {
   protected:
-    using bucket_t = std::vector<std::tuple<Key, Value, hash_t>>;
+    using bucket_t = sequential::doubly_linked_list<std::tuple<Key, Value, hash_t>>;
 
   public:
     /**
@@ -72,8 +71,7 @@ namespace containers::associative {
     hash_map_iterator<bucket_t, Key, Value> cend() const;
   private:
     const std::function<hash_t(const Key&)> hash_function;
-    // TODO: Replace with custom list implementation
-    std::vector<bucket_t> buckets;
+    std::shared_ptr<sequential::doubly_linked_list<bucket_t>> buckets_ptr;
 
     [[nodiscard]] const bucket_t& find_bucket_by_key(const Key& key) const;
     [[nodiscard]] bucket_t& find_bucket_by_key(const Key& key);

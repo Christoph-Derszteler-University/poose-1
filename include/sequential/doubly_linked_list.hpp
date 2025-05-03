@@ -13,7 +13,8 @@ namespace containers::sequential {
  * @tparam T The type of the elements stored in the list.
  */
 template <typename T> class abstract_doubly_linked_list : public container {
-protected:
+// Needs to public, because of hash_multi_map#remove_by_key (l. 62ff.)
+public:
   /**
    * @brief Internal node structure for the doubly linked list.
    */
@@ -31,6 +32,8 @@ protected:
   };
 
   using node_t = std::shared_ptr<node>;
+
+protected:
 
   /**
    * @brief Virtual destructor to ensure proper cleanup in derived classes.
