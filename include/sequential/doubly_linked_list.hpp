@@ -100,7 +100,7 @@ protected:
   /**
    * @brief Returns a reference to the element at the specified index.
    *
-   * This function provides random access to elements stored in the doubly
+   * This function provides access to elements stored in the doubly
    * linked list. It chooses the traversal direction based on the proximity of
    * the index to either the head or the tail for optimal performance.
    *
