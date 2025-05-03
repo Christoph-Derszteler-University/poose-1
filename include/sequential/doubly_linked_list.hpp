@@ -184,6 +184,9 @@ public:
     node_t current; ///< Pointer to the current node.
 
   public:
+    using difference_type = std::ptrdiff_t;
+    using value_type = node_t;
+
     /**
      * @brief Default constructor.
      */
@@ -199,13 +202,13 @@ public:
      * @brief Dereference operator.
      * @return Reference to the data in the current node.
      */
-    node_t operator*() const;
+    value_type operator*() const;
 
     /**
      * @brief Arrow operator.
      * @return Pointer to the data in the current node.
      */
-    node_t *operator->() const;
+    value_type *operator->() const;
 
     /**
      * @brief Pre-increment operator.
