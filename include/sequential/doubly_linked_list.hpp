@@ -96,6 +96,24 @@ protected:
    * @brief Removes the first element of the list.
    */
   virtual void pop_front() noexcept = 0;
+
+  /**
+   * @brief Returns a reference to the element at the specified index.
+   *
+   * This function provides access to elements stored in the doubly
+   * linked list. It chooses the traversal direction based on the proximity of
+   * the index to either the head or the tail for optimal performance.
+   *
+   * @tparam T The type of elements stored in the list.
+   * @param idx The zero-based index of the element to access.
+   * @return T& Reference to the element at the specified index.
+   *
+   * @throws std::out_of_range If the index is greater than or equal to the
+   * number of elements in the list.
+   *
+   * @note This method has linear time complexity in the worst case (O(n)).
+   */
+  virtual T &at(size_t idx) const = 0;
 };
 
 /**
@@ -147,6 +165,9 @@ public:
 
   /// @copydoc abstract_doubly_linked_list::pop_front
   void pop_front() noexcept override;
+
+  /// @copydoc abstract_doubly_linked_list::at
+  T &at(size_t idx) const override;
 
 public:
   /**
