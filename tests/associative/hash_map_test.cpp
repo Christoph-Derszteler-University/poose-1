@@ -78,6 +78,7 @@ TEST_F(hash_map_test, RemoveNonExistingKeyDoesNotThrow) {
 
 TEST_F(hash_map_test, IteratorBeginPointsToFirstElement) {
   const auto& it = hash_map.begin();
+  EXPECT_EQ(it, hash_map.begin());
   EXPECT_NE(it, hash_map.end());
 }
 
@@ -90,4 +91,16 @@ TEST_F(hash_map_test, ConstIteratorWorksCorrectly) {
   const auto& const_hash_map = hash_map;
   const auto& it = const_hash_map.cbegin();
   EXPECT_NE(it, const_hash_map.cend());
+}
+
+TEST_F(hash_map_test, IteratorEqualityIsCorrect) {
+  auto comparison = containers::associative::hash_map<std::string, int>(std::hash<std::string>());
+  comparison.insert("key1", 3);
+  comparison.insert("key2", 2);
+  const auto& first = hash_map.begin();
+  const auto& second = comparison.begin();
+
+  EXPECT_EQ(first, hash_map.begin()) << "equal iterators of the same container must be equal";
+  EXPECT_EQ(second, comparison.begin()) << "equal iterators of the same container must be equal";
+  EXPECT_NE(first, second) << "iterators at the same position of two different containers must not be equal";
 }

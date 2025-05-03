@@ -45,7 +45,8 @@ namespace containers::associative {
 
   template<typename Bucket, typename Key, typename Value>
   bool hash_map_iterator<Bucket, Key, Value>::operator==(const hash_map_iterator& other) const {
-    return outer_index == other.outer_index
+    return ptr == other.ptr
+      && outer_index == other.outer_index
       && inner_index == other.inner_index;
   }
 

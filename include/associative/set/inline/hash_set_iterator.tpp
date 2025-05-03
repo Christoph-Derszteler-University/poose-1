@@ -46,7 +46,8 @@ namespace containers::associative {
 
   template<typename Bucket, typename Key>
   bool hash_set_iterator<Bucket, Key>::operator==(const hash_set_iterator& other) const {
-    return outer_index == other.outer_index
+    return ptr == other.ptr
+      && outer_index == other.outer_index
       && inner_index == other.inner_index;
   }
 
