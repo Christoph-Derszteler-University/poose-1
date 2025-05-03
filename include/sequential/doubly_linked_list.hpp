@@ -113,7 +113,7 @@ protected:
    *
    * @note This method has linear time complexity in the worst case (O(n)).
    */
-  virtual T &at(size_t idx) const = 0;
+  virtual node_t at(size_t idx) const = 0;
 };
 
 /**
@@ -167,7 +167,7 @@ public:
   void pop_front() noexcept override;
 
   /// @copydoc abstract_doubly_linked_list::at
-  T &at(size_t idx) const override;
+  node_t at(size_t idx) const override;
 
 public:
   /**
@@ -196,13 +196,13 @@ public:
      * @brief Dereference operator.
      * @return Reference to the data in the current node.
      */
-    T &operator*() const;
+    node_t operator*() const;
 
     /**
      * @brief Arrow operator.
      * @return Pointer to the data in the current node.
      */
-    T *operator->() const;
+    node_t *operator->() const;
 
     /**
      * @brief Pre-increment operator.

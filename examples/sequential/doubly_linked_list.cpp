@@ -13,8 +13,8 @@ int main() {
   // 10 -> 5 -> 200
   list.pop_back();
 
-  int five = list.at(1);
-  std::cout << five << std::endl;
+  auto five = list.at(1);
+  std::cout << five->data << std::endl;
 
   // 10 -> 5 -> 1000 -> 200
   list.insert(list.back(), 1000);
@@ -27,6 +27,6 @@ int main() {
   std::cout << list.size() << std::endl;
 
   for (const auto &node : list) {
-    std::cout << node << " ";
+    std::cout << node->data << " ";
   }
 }
