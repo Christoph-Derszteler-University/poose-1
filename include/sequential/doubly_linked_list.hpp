@@ -34,7 +34,6 @@ public:
   using node_t = std::shared_ptr<node>;
 
 protected:
-
   /**
    * @brief Virtual destructor to ensure proper cleanup in derived classes.
    */
@@ -86,7 +85,7 @@ protected:
   /**
    * @brief Removes the last element of the list.
    */
-  virtual void pop_back() noexcept = 0;
+  virtual void pop_back() = 0;
 
   /**
    * @brief Inserts an element at the front of the list.
@@ -98,7 +97,7 @@ protected:
   /**
    * @brief Removes the first element of the list.
    */
-  virtual void pop_front() noexcept = 0;
+  virtual void pop_front() = 0;
 
   /**
    * @brief Returns a reference to the element at the specified index.
@@ -161,13 +160,13 @@ public:
   void push_back(T val) override;
 
   /// @copydoc abstract_doubly_linked_list::pop_back
-  void pop_back() noexcept override;
+  void pop_back() override;
 
   /// @copydoc abstract_doubly_linked_list::push_front
   void push_front(T val) override;
 
   /// @copydoc abstract_doubly_linked_list::pop_front
-  void pop_front() noexcept override;
+  void pop_front() override;
 
   /// @copydoc abstract_doubly_linked_list::at
   node_t at(size_t idx) const override;
