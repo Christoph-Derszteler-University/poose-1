@@ -44,7 +44,7 @@ namespace containers::associative {
   template<typename Key, typename Value>
   bool hash_multi_map<Key, Value>::exists_by_key(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    return std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+    return std::ranges::find_if(bucket, [&key](const auto& other) {
       return std::get<0>(other->data) == key;
     }) != bucket.end();
   }
@@ -52,7 +52,7 @@ namespace containers::associative {
   template<typename Key, typename Value>
   bool hash_multi_map<Key, Value>::exists(const Key& key, const Value& value) const {
     auto& bucket = find_bucket_by_key(key);
-    return std::find_if(bucket.begin(), bucket.end(), [&key, &value](const auto& other) {
+    return std::ranges::find_if(bucket, [&key, &value](const auto& other) {
       return std::get<0>(other->data) == key && std::get<1>(other->data) == value;
     }) != bucket.end();
   }

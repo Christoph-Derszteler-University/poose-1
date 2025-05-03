@@ -49,7 +49,7 @@ namespace containers::associative {
     const bool throw_exception
   ) {
     auto& bucket = find_bucket_by_key(key);
-    const auto exists = std::find_if(bucket.begin(), bucket.end(), [&key](const auto& tuple_pointer) {
+    const auto exists = std::ranges::find_if(bucket, [&key](const auto& tuple_pointer) {
       return std::get<0>(tuple_pointer->data) == key;
     });
 
@@ -68,7 +68,7 @@ namespace containers::associative {
   template<typename Key, typename Value>
   std::optional<Value> hash_map<Key, Value>::find_by_key(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    const auto it = std::find_if(bucket.begin(), bucket.end(), [&key](const auto& tuple_pointer) {
+    const auto it = std::ranges::find_if(bucket, [&key](const auto& tuple_pointer) {
       return std::get<0>(tuple_pointer->data) == key;
     });
     return it != bucket.end() ? std::optional{std::get<1>((*it)->data)} : std::nullopt;
