@@ -121,7 +121,6 @@ namespace containers::associative {
     for (auto index = 0; index < new_size; ++index) {
       buckets.push_front(sequential::doubly_linked_list<std::pair<Key, hash_t>>());
     }
-
     for (const auto& pair_pointer : existing) {
       const auto& pair = pair_pointer->data;
       const auto& key = std::get<0>(pair);

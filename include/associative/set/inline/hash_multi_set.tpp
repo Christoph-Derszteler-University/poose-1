@@ -11,16 +11,18 @@ namespace containers::associative {
     const size_t& bucket_count
   ) : hash_function(hash_function) {
     const auto bucket_count_log_2 = std::ceil(std::log2(bucket_count));
-    buckets(std::vector(
-      std::pow(2, bucket_count_log_2),
-      std::vector<std::pair<Key, hash_t>>()
-    ));
+    const auto adjusted_bucket_count = std::pow(2, bucket_count_log_2);
+    for (auto index = 0; index < adjusted_bucket_count; ++index) {
+      buckets.push_front(sequential::doubly_linked_list<std::pair<Key, hash_t>>());
+    }
   }
 
   template<typename Key>
   hash_multi_set<Key>::hash_multi_set(
     const std::function<hash_t(const Key&)>& hash_function
-  ) : hash_function(hash_function), buckets(std::vector(1, std::vector<std::pair<Key, hash_t>>())) {}
+  ) : hash_function(hash_function), buckets(sequential::doubly_linked_list<bucket_t>()) {
+    buckets.push_front(sequential::doubly_linked_list<std::pair<Key, hash_t>>());
+  }
 
   template<typename Key>
   void hash_multi_set<Key>::insert(const Key& key) {
@@ -36,8 +38,8 @@ namespace containers::associative {
   template<typename Key>
   bool hash_multi_set<Key>::exists(const Key& key) const {
     auto& bucket = find_bucket_by_key(key);
-    return std::ranges::find_if(bucket, [&key](const auto& other) {
-      return std::get<0>(other) == key;
+    return std::find_if(bucket.begin(), bucket.end(), [&key](const auto& other) {
+      return std::get<0>(other->data) == key;
     }) != bucket.end();
   }
 
@@ -45,9 +47,15 @@ namespace containers::associative {
   void hash_multi_set<Key>::remove(const Key& key) {
     auto& bucket = find_bucket_by_key(key);
     const auto initial_size = bucket.size();
-    std::erase_if(bucket, [&key](const auto& pair) {
-      return std::get<0>(pair) == key;
-    });
+    auto to_remove = sequential::doubly_linked_list<typename sequential::abstract_doubly_linked_list<std::pair<Key, hash_t>>::node_t>{};
+    for (const auto& pair_pointer : bucket) {
+      if (std::get<0>(pair_pointer->data) == key) {
+        to_remove.push_back(pair_pointer);
+      }
+    }
+    for (const auto& pair_pointer : to_remove) {
+      bucket.erase(pair_pointer->data);
+    }
 
     container::number_elements -= initial_size - bucket.size();
     if (calculate_load_factor() <= 0.25) {
@@ -61,7 +69,7 @@ namespace containers::associative {
   ) {
     const auto hash = hash_function(key);
     const auto bucket_index = hash % buckets.size();
-    return buckets.at(bucket_index);
+    return buckets.at(bucket_index)->data;
   }
 
   template<typename Key>
@@ -80,38 +88,60 @@ namespace containers::associative {
   template<typename Key>
   void hash_multi_set<Key>::redistribute_buckets(const size_t& new_size) {
     bucket_t existing;
-    for (const auto& bucket : buckets) {
-      existing.insert(existing.end(), bucket.begin(), bucket.end());
+    for (const auto& bucket_ptr : buckets) {
+      for (const auto& element : bucket_ptr->data) {
+        existing.push_back(element->data);
+      }
     }
 
-    buckets = std::vector<bucket_t>(new_size);
-    for (const auto& pair : existing) {
+    buckets = sequential::doubly_linked_list<bucket_t>();
+    for (auto index = 0; index < new_size; ++index) {
+      buckets.push_front(sequential::doubly_linked_list<std::pair<Key, hash_t>>());
+    }
+    for (const auto& pair_tuple : existing) {
+      const auto& pair = pair_tuple->data;
       const auto& key = std::get<0>(pair);
       const auto& hash = std::get<1>(pair);
       const auto bucket_index = hash % buckets.size();
-      buckets.at(bucket_index).push_back(pair);
+      buckets.at(bucket_index)->data.push_back(pair);
     }
   }
 
   template<typename Key>
   hash_set_iterator<typename hash_multi_set<Key>::bucket_t, Key> hash_multi_set<Key>::begin() {
     const auto first_non_empty = hash_set_iterator<bucket_t, Key>::calculate_next_non_empty_bucket_index(buckets, 0);
-    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+    return hash_set_iterator<bucket_t, Key>(
+      std::make_shared<sequential::doubly_linked_list<bucket_t>>(buckets),
+      first_non_empty,
+      0
+    );
   }
 
   template<typename Key>
   hash_set_iterator<typename hash_multi_set<Key>::bucket_t, Key> hash_multi_set<Key>::end() {
-    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+    return hash_set_iterator<bucket_t, Key>(
+      std::make_shared<sequential::doubly_linked_list<bucket_t>>(buckets),
+      buckets.size(),
+      0
+    );
   }
 
   template<typename Key>
   hash_set_iterator<typename hash_multi_set<Key>::bucket_t, Key> hash_multi_set<Key>::cbegin() const {
     const auto first_non_empty = hash_set_iterator<bucket_t, Key>::calculate_next_non_empty_bucket_index(buckets, 0);
-    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), first_non_empty, 0);
+    return hash_set_iterator<bucket_t, Key>(
+      std::make_shared<sequential::doubly_linked_list<bucket_t>>(buckets),
+      first_non_empty,
+      0
+    );
   }
 
   template<typename Key>
   hash_set_iterator<typename hash_multi_set<Key>::bucket_t, Key> hash_multi_set<Key>::cend() const {
-    return hash_set_iterator<bucket_t, Key>(std::make_shared<std::vector<bucket_t>>(buckets), buckets.size(), 0);
+    return hash_set_iterator<bucket_t, Key>(
+      std::make_shared<sequential::doubly_linked_list<bucket_t>>(buckets),
+      buckets.size(),
+      0
+    );
   }
 }
