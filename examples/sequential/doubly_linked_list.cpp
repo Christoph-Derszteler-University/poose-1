@@ -10,23 +10,23 @@ int main() {
   list.push_back(200);
   list.push_back(500);
 
-  // 10 -> 5
-  // list.pop_back();
+  // 10 -> 5 -> 200
+  list.pop_back();
 
-  auto ten = list.at(4);
-  // 1000 -> 10 -> 5
-  // list.insert(ten, 1000);
+  int five = list.at(1);
+  std::cout << five << std::endl;
 
-  std::cout << ten << std::endl;
+  // 10 -> 5 -> 1000 -> 200
+  list.insert(list.back(), 1000);
 
-  // std::cout << list.size() << std::endl;
+  std::cout << list.size() << std::endl;
 
-  // 1000 -> 10
-  // list.erase(list.back());
+  // 10 -> 5 -> 1000
+  list.erase(list.back());
 
-  // std::cout << list.size() << std::endl;
+  std::cout << list.size() << std::endl;
 
-  // for (const auto &node : list) {
-  //   std::cout << node << " ";
-  // }
+  for (const auto &node : list) {
+    std::cout << node << " ";
+  }
 }
