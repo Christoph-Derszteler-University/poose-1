@@ -64,6 +64,7 @@ protected:
    * @param pos The position before which to insert the new node.
    * @param val The value to be inserted.
    * @return A shared pointer to the newly inserted node.
+   * @throws containers::sequential::invalid_node if pos is a nullptr.
    */
   virtual node_t insert(node_t pos, T val) = 0;
 
@@ -72,6 +73,7 @@ protected:
    *
    * @param pos The node to remove.
    * @return A shared pointer to the next node after the removed node.
+   * @throws containers::sequential::invalid_node if pos is a nullptr.
    */
   virtual node_t erase(node_t pos) = 0;
 
@@ -84,6 +86,7 @@ protected:
 
   /**
    * @brief Removes the last element of the list.
+   * @throws containers::sequential::empty_container if the list is empty.
    */
   virtual void pop_back() = 0;
 
@@ -96,6 +99,7 @@ protected:
 
   /**
    * @brief Removes the first element of the list.
+   * @throws containers::sequential::empty_container if the list is empty.
    */
   virtual void pop_front() = 0;
 
