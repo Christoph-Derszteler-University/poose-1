@@ -117,7 +117,7 @@ template <typename T> void doubly_linked_list<T>::pop_front() noexcept {
   }
 }
 
-template<typename T> T& doubly_linked_list<T>::at(size_t idx) const {
+template<typename T> doubly_linked_list<T>::node_t doubly_linked_list<T>::at(size_t idx) const {
   if (idx >= container::number_elements) {
     throw std::out_of_range(std::format("The index '{}' is higher than the max allowed index '{}'", idx, container::number_elements - 1));
   }
@@ -153,12 +153,12 @@ template <typename T> doubly_linked_list<T>::iterator::iterator() = default;
 template <typename T>
 doubly_linked_list<T>::iterator::iterator(node_t ptr) : current(ptr) {}
 
-template <typename T> T &doubly_linked_list<T>::iterator::operator*() const {
-  return current->data;
+template <typename T> doubly_linked_list<T>::node_t doubly_linked_list<T>::iterator::operator*() const {
+  return current;
 }
 
-template <typename T> T *doubly_linked_list<T>::iterator::operator->() const {
-  return &current->data;
+template <typename T> doubly_linked_list<T>::node_t *doubly_linked_list<T>::iterator::operator->() const {
+  return &current;
 }
 
 template <typename T>
