@@ -122,7 +122,7 @@ template<typename T> T& doubly_linked_list<T>::at(size_t idx) const {
     throw std::out_of_range(std::format("The index '{}' is higher than the max allowed index '{}'", idx, container::number_elements - 1));
   }
 
-  auto it = iterator();
+  iterator it;
   if (idx < static_cast<size_t>(container::number_elements / 2)) {
     it = iterator(head_pointer);
     for (size_t current_idx = 0; current_idx < idx; current_idx++) {
