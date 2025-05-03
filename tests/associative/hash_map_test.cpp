@@ -11,10 +11,9 @@ protected:
   using value_t = int;
   using hash_map_t = containers::associative::hash_map<key_t, value_t>;
 
-  static std::hash<key_t> hash_function;
   hash_map_t hash_map;
 
-  hash_map_test() : hash_map(hash_function) {}
+  hash_map_test() : hash_map(std::hash<key_t>()) {}
 
   void SetUp() override {
     hash_map.insert("key1", 1);

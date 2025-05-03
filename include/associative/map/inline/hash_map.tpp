@@ -102,7 +102,7 @@ namespace containers::associative {
   template<typename Key, typename Value>
   const typename hash_map<Key, Value>::bucket_t& hash_map<Key, Value>::find_bucket_by_key(
     const Key& key
-    ) const {
+  ) const {
     return const_cast<hash_map*>(this)->find_bucket_by_key(key);
   }
 
