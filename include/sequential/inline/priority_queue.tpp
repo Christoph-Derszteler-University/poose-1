@@ -5,7 +5,7 @@ template <typename T> priority_queue<T>::priority_queue() = default;
 template <typename T> void priority_queue<T>::push(const T &value) {
   heap.push_back(value);
   container::number_elements++;
-  heapifyUp(container::number_elements - 1);
+  heapify_up(container::number_elements - 1);
 }
 
 template <typename T> void priority_queue<T>::pop() {
@@ -17,7 +17,7 @@ template <typename T> void priority_queue<T>::pop() {
   heap.pop_back();
   container::number_elements--;
   if (!heap.empty()) {
-    heapifyDown(0);
+    heapify_down(0);
   }
 }
 
@@ -28,7 +28,7 @@ template <typename T> const T &priority_queue<T>::top() const {
   return heap.front()->data;
 }
 
-template <typename T> void priority_queue<T>::heapifyUp(std::size_t index) {
+template <typename T> void priority_queue<T>::heapify_up(std::size_t index) {
   while (index > 0) {
     size_t parent = (index - 1) / 2;
     // if heap[parent] < heap[index], swap for max-heap
@@ -41,7 +41,7 @@ template <typename T> void priority_queue<T>::heapifyUp(std::size_t index) {
   }
 }
 
-template <typename T> void priority_queue<T>::heapifyDown(std::size_t index) {
+template <typename T> void priority_queue<T>::heapify_down(std::size_t index) {
   size_t n = container::number_elements;
   while (true) {
     size_t left = 2 * index + 1;

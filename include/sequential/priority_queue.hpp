@@ -80,14 +80,14 @@ private:
    * 
    * @param index The index of the newly inserted element.
    */
-  void heapifyUp(std::size_t index);
+  void heapify_up(std::size_t index);
 
   /**
    * @brief Maintains the heap property after removal by bubbling the element down.
    * 
    * @param index The index from which to start the heapify down process.
    */
-  void heapifyDown(std::size_t index);
+  void heapify_down(std::size_t index);
 };
 
 } // namespace containers::sequential
