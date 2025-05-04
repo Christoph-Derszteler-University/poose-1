@@ -1,4 +1,6 @@
 #include <sequential/doubly_linked_list.hpp>
+#include <sequential/empty_container.hpp>
+#include <sequential/invalid_node.hpp>
 
 namespace containers::sequential {
 
@@ -25,7 +27,7 @@ template <typename T> void doubly_linked_list<T>::clear() noexcept {
 template <typename T>
 doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
   if (pos == nullptr) {
-    return nullptr;
+    throw invalid_node();
   }
 
   const auto new_node = std::make_shared<node>(val);
@@ -48,7 +50,7 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::insert(node_t pos, T val) {
 template <typename T>
 doubly_linked_list<T>::node_t doubly_linked_list<T>::erase(node_t pos) {
   if (pos == nullptr) {
-    return nullptr;
+    throw invalid_node();
   }
 
   container::number_elements--;
@@ -81,9 +83,9 @@ template <typename T> void doubly_linked_list<T>::push_back(T val) {
   container::number_elements++;
 }
 
-template <typename T> void doubly_linked_list<T>::pop_back() noexcept {
+template <typename T> void doubly_linked_list<T>::pop_back() {
   if (container::empty()) {
-    return;
+    throw empty_container();
   }
 
   const auto prev = tail_pointer->prev.lock();
@@ -110,16 +112,23 @@ template <typename T> void doubly_linked_list<T>::push_front(T val) {
   container::number_elements++;
 }
 
-template <typename T> void doubly_linked_list<T>::pop_front() noexcept {
-  if (!container::empty()) {
-    head_pointer = head_pointer->next;
-    container::number_elements--;
+template <typename T> void doubly_linked_list<T>::pop_front() {
+  if (container::empty()) {
+    throw empty_container();
   }
+
+  head_pointer = head_pointer->next;
+  container::number_elements--;
 }
 
-template<typename T> doubly_linked_list<T>::node_t doubly_linked_list<T>::at(size_t idx) const {
+template <typename T>
+doubly_linked_list<T>::node_t doubly_linked_list<T>::at(size_t idx) const {
   if (idx >= container::number_elements) {
-    throw std::out_of_range(std::format("The index '{}' is higher than the max allowed index '{}'", idx, container::number_elements - 1));
+    throw std::out_of_range(std::format(
+      "The index '{}' is higher than the max allowed index '{}'",
+      idx,
+      container::number_elements - 1
+    ));
   }
 
   iterator it;
@@ -153,11 +162,15 @@ template <typename T> doubly_linked_list<T>::iterator::iterator() = default;
 template <typename T>
 doubly_linked_list<T>::iterator::iterator(node_t ptr) : current(ptr) {}
 
-template <typename T> doubly_linked_list<T>::node_t doubly_linked_list<T>::iterator::operator*() const {
+template <typename T>
+doubly_linked_list<T>::node_t
+doubly_linked_list<T>::iterator::operator*() const {
   return current;
 }
 
-template <typename T> doubly_linked_list<T>::node_t *doubly_linked_list<T>::iterator::operator->() const {
+template <typename T>
+doubly_linked_list<T>::node_t *
+doubly_linked_list<T>::iterator::operator->() const {
   return &current;
 }
 

@@ -34,7 +34,6 @@ public:
   using node_t = std::shared_ptr<node>;
 
 protected:
-
   /**
    * @brief Virtual destructor to ensure proper cleanup in derived classes.
    */
@@ -65,6 +64,7 @@ protected:
    * @param pos The position before which to insert the new node.
    * @param val The value to be inserted.
    * @return A shared pointer to the newly inserted node.
+   * @throws containers::sequential::invalid_node if pos is a nullptr.
    */
   virtual node_t insert(node_t pos, T val) = 0;
 
@@ -73,6 +73,7 @@ protected:
    *
    * @param pos The node to remove.
    * @return A shared pointer to the next node after the removed node.
+   * @throws containers::sequential::invalid_node if pos is a nullptr.
    */
   virtual node_t erase(node_t pos) = 0;
 
@@ -85,8 +86,9 @@ protected:
 
   /**
    * @brief Removes the last element of the list.
+   * @throws containers::sequential::empty_container if the list is empty.
    */
-  virtual void pop_back() noexcept = 0;
+  virtual void pop_back() = 0;
 
   /**
    * @brief Inserts an element at the front of the list.
@@ -97,8 +99,9 @@ protected:
 
   /**
    * @brief Removes the first element of the list.
+   * @throws containers::sequential::empty_container if the list is empty.
    */
-  virtual void pop_front() noexcept = 0;
+  virtual void pop_front() = 0;
 
   /**
    * @brief Returns a reference to the element at the specified index.
@@ -161,13 +164,13 @@ public:
   void push_back(T val) override;
 
   /// @copydoc abstract_doubly_linked_list::pop_back
-  void pop_back() noexcept override;
+  void pop_back() override;
 
   /// @copydoc abstract_doubly_linked_list::push_front
   void push_front(T val) override;
 
   /// @copydoc abstract_doubly_linked_list::pop_front
-  void pop_front() noexcept override;
+  void pop_front() override;
 
   /// @copydoc abstract_doubly_linked_list::at
   node_t at(size_t idx) const override;
