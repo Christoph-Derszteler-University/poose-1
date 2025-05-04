@@ -27,7 +27,7 @@ protected:
    * @return Reference to the top element.
    * @throws std::out_of_range if the priority queue is empty.
    */
-  virtual const T &top() const = 0;
+  [[nodiscard]] virtual const T &top() const = 0;
 
   /**
    * @brief Insert an element into the priority queue.
