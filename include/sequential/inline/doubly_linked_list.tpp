@@ -137,8 +137,7 @@ doubly_linked_list<T>::node_t doubly_linked_list<T>::at(size_t idx) const {
     }
   } else {
     it = iterator(tail_pointer);
-    for (size_t current_idx = container::number_elements - idx - 1;
-         current_idx > 0; current_idx--) {
+    for (size_t current_idx = container::number_elements - idx - 1; current_idx > 0; current_idx--) {
       it--;
     }
   }
