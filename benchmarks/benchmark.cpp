@@ -20,3 +20,12 @@ std::chrono::duration<double> containers::benchmark::benchmark_action(const std:
   const auto end = std::chrono::high_resolution_clock::now();
   return end - begin;
 }
+
+void containers::benchmark::benchmark_with_different_sizes(
+  const std::function<void(const int&)>& benchmark,
+  const std::vector<int>& sizes
+) {
+  for (const auto& size : sizes) {
+    benchmark(size);
+  }
+}
