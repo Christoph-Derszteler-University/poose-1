@@ -28,8 +28,8 @@ TEST_F(list_stack_test, DataIsInsertedCorrectly){
 }
 TEST_F(list_stack_test, DataIsDeletedCorrectly){
     const auto&  tmp = list_stack.pop();
-    EXPECT_EQ(tmp, 45);
-    EXPECT_EQ(list_stack.size(), 3);
+    EXPECT_EQ(tmp, 2042006);
+    EXPECT_EQ(list_stack.size(), 2);
     EXPECT_FALSE(list_stack.empty());
 }
 TEST_F(list_stack_test, ListIsEmptyCorrectBehaviour){
