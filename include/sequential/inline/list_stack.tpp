@@ -15,13 +15,13 @@ namespace containers::sequential {
         }
         const auto& tmp = m_list.front();
         m_list.pop_front();
-        container::number_elements -= 1;
-        return tmp;
+        container::number_elements--;
+        return tmp->data;
     }
     template <typename T> const T& list_stack<T>::top() const {
         if (m_list.empty()){
             throw empty_container();
         }
-        return m_list.front();
+        return m_list.front()->data;
     }
 }
