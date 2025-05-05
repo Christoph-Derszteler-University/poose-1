@@ -24,12 +24,12 @@ TEST_F(list_queue_test, CorrectContainerSize){
 }
 TEST_F(list_queue_test, DataIsInsertedCorrectly){
     list_queue.enqueue(45);
-    EXPECT_EQ(list_queue.front(), 45);
+    EXPECT_EQ(list_queue.back(), 45);
 }
 TEST_F(list_queue_test, DataIsDeletedCorrectly){
     const auto&  tmp = list_queue.dequeue();
-    EXPECT_EQ(tmp, 45);
-    EXPECT_EQ(list_queue.size(), 3);
+    EXPECT_EQ(tmp, 42);
+    EXPECT_EQ(list_queue.size(), 2);
     EXPECT_FALSE(list_queue.empty());
 }
 TEST_F(list_queue_test, QueueIsEmptyCorrectBehaviour){
