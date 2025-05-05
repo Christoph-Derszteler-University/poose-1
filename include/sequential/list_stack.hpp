@@ -1,14 +1,14 @@
 #pragma once
 
 #include "sequential/abstract_stack.hpp"
-#include <list>
+#include "doubly_linked_list.hpp"
 
 namespace containers::sequential {
 
     template <typename T>
     class list_stack: public abstract_stack<T> {
     private:
-        std::list<T> m_list;
+        doubly_linked_list<T> m_list;
     public:
         /**
          * @brief constructs a stack using the list structure

@@ -16,19 +16,19 @@ namespace containers::sequential {
         const auto& tmp = m_list.front();
         m_list.pop_front();
         container::number_elements--;
-        return tmp;
+        return tmp->data;
     }
     template <typename T> const T& list_queue<T>::front() const{
         if (m_list.empty()){
             throw empty_container();
         }
-        return m_list.front();
+        return m_list.front()->data;
     }
     template <typename T> const T& list_queue<T>::back() const {
         if (m_list.empty()){
             throw empty_container();
         }
-        return m_list.back();
+        return m_list.back()->data;
 
     }
 }

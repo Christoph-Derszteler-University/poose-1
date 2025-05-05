@@ -66,3 +66,10 @@ target_link_libraries(hash_multi_set_test GTest::gtest_main)
 add_executable(hash_multi_map_test tests/associative/hash_multi_map_test.cpp ${SRC_FILES})
 target_link_libraries(hash_multi_map_test GTest::gtest_main)
 gtest_discover_tests(hash_set_test hash_map_test hash_multi_set_test hash_multi_map_test)
+
+# Sequential containers tests
+add_executable(stack_test tests/sequential/stack_test.cpp ${SRC_FILES})
+target_link_libraries(stack_test GTest::gtest_main)
+add_executable(queue_test tests/sequential/queue_test.cpp ${SRC_FILES})
+target_link_libraries(queue_test GTest::gtest_main)
+gtest_discover_tests(queue_test)
