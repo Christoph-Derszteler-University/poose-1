@@ -21,16 +21,25 @@ add_link_options(-fsanitize=address)
 include_directories(include)
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
+# Examples
+
 add_executable(queue_example examples/sequential/queue_example.cpp ${SRC_FILES})
 add_executable(stack_example examples/sequential/stack_example.cpp ${SRC_FILES})
+add_executable(priority_queue_example examples/sequential/priority_queue.cpp ${SRC_FILES})
 add_executable(linked_list_example examples/sequential/linked_list.cpp ${SRC_FILES})
 add_executable(doubly_linked_list_example examples/sequential/doubly_linked_list.cpp ${SRC_FILES})
 
-# Associative examples
 add_executable(hash_map_example examples/associative/hash_map_example.cpp ${SRC_FILES})
 add_executable(hash_multi_map_example examples/associative/hash_multi_map_example.cpp ${SRC_FILES})
 add_executable(hash_set_example examples/associative/hash_set_example.cpp ${SRC_FILES})
 add_executable(hash_multi_set_example examples/associative/hash_multi_set_example.cpp ${SRC_FILES})
+
+# Benchmarks
+
+function(add_benchmark name source)
+  add_executable(${name}_benchmark ${source} benchmarks/benchmark.cpp ${SRC_FILES})
+  target_include_directories(${name}_benchmark PRIVATE benchmarks)
+endfunction()
 
 # Tests
 

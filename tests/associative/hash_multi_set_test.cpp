@@ -12,8 +12,7 @@ protected:
 
   hash_multi_set_t hash_multi_set;
 
-  static std::hash<std::string> hash_function;
-  hash_multi_set_test() : hash_multi_set(hash_function) {}
+  hash_multi_set_test() : hash_multi_set(std::hash<key_t>()) {}
 
   void SetUp() override {
     hash_multi_set.insert("key1");
@@ -63,6 +62,7 @@ TEST_F(hash_multi_set_test, RemoveNonExistingKeyDoesNotThrow) {
 
 TEST_F(hash_multi_set_test, IteratorBeginPointsToFirstElement) {
   const auto& it = hash_multi_set.begin();
+  EXPECT_EQ(it, hash_multi_set.begin());
   EXPECT_NE(it, hash_multi_set.end());
 }
 
@@ -74,4 +74,16 @@ TEST_F(hash_multi_set_test, IteratorEndPointsToPastLastElement) {
 TEST_F(hash_multi_set_test, ConstIteratorWorksCorrectly) {
   const auto& it = hash_multi_set.cbegin();
   EXPECT_NE(it, hash_multi_set.cend());
+}
+
+TEST_F(hash_multi_set_test, IteratorEqualityIsCorrect) {
+  auto comparison = containers::associative::hash_multi_set<std::string>(std::hash<std::string>());
+  comparison.insert("key5");
+  comparison.insert("key3");
+  const auto& first = hash_multi_set.begin();
+  const auto& second = comparison.begin();
+
+  EXPECT_EQ(first, hash_multi_set.begin()) << "equal iterators of the same container must be equal";
+  EXPECT_EQ(second, comparison.begin()) << "equal iterators of the same container must be equal";
+  EXPECT_NE(first, second) << "iterators at the same position of two different containers must not be equal";
 }

@@ -13,7 +13,8 @@ namespace containers::sequential {
  * @tparam T The type of the elements stored in the list.
  */
 template <typename T> class abstract_doubly_linked_list : public container {
-protected:
+// Needs to public, because of hash_multi_map#remove_by_key (l. 62ff.)
+public:
   /**
    * @brief Internal node structure for the doubly linked list.
    */
@@ -32,6 +33,7 @@ protected:
 
   using node_t = std::shared_ptr<node>;
 
+protected:
   /**
    * @brief Virtual destructor to ensure proper cleanup in derived classes.
    */
@@ -62,6 +64,7 @@ protected:
    * @param pos The position before which to insert the new node.
    * @param val The value to be inserted.
    * @return A shared pointer to the newly inserted node.
+   * @throws containers::sequential::invalid_node if pos is a nullptr.
    */
   virtual node_t insert(node_t pos, T val) = 0;
 
@@ -70,6 +73,7 @@ protected:
    *
    * @param pos The node to remove.
    * @return A shared pointer to the next node after the removed node.
+   * @throws containers::sequential::invalid_node if pos is a nullptr.
    */
   virtual node_t erase(node_t pos) = 0;
 
@@ -82,8 +86,9 @@ protected:
 
   /**
    * @brief Removes the last element of the list.
+   * @throws containers::sequential::empty_container if the list is empty.
    */
-  virtual void pop_back() noexcept = 0;
+  virtual void pop_back() = 0;
 
   /**
    * @brief Inserts an element at the front of the list.
@@ -94,8 +99,27 @@ protected:
 
   /**
    * @brief Removes the first element of the list.
+   * @throws containers::sequential::empty_container if the list is empty.
    */
-  virtual void pop_front() noexcept = 0;
+  virtual void pop_front() = 0;
+
+  /**
+   * @brief Returns a reference to the element at the specified index.
+   *
+   * This function provides access to elements stored in the doubly
+   * linked list. It chooses the traversal direction based on the proximity of
+   * the index to either the head or the tail for optimal performance.
+   *
+   * @tparam T The type of elements stored in the list.
+   * @param idx The zero-based index of the element to access.
+   * @return T& Reference to the element at the specified index.
+   *
+   * @throws std::out_of_range If the index is greater than or equal to the
+   * number of elements in the list.
+   *
+   * @note This method has linear time complexity in the worst case (O(n)).
+   */
+  virtual node_t at(size_t idx) const = 0;
 };
 
 /**
@@ -140,13 +164,16 @@ public:
   void push_back(T val) override;
 
   /// @copydoc abstract_doubly_linked_list::pop_back
-  void pop_back() noexcept override;
+  void pop_back() override;
 
   /// @copydoc abstract_doubly_linked_list::push_front
   void push_front(T val) override;
 
   /// @copydoc abstract_doubly_linked_list::pop_front
-  void pop_front() noexcept override;
+  void pop_front() override;
+
+  /// @copydoc abstract_doubly_linked_list::at
+  node_t at(size_t idx) const override;
 
 public:
   /**
@@ -160,6 +187,9 @@ public:
     node_t current; ///< Pointer to the current node.
 
   public:
+    using difference_type = std::ptrdiff_t;
+    using value_type = node_t;
+
     /**
      * @brief Default constructor.
      */
@@ -175,13 +205,13 @@ public:
      * @brief Dereference operator.
      * @return Reference to the data in the current node.
      */
-    T &operator*() const;
+    value_type operator*() const;
 
     /**
      * @brief Arrow operator.
      * @return Pointer to the data in the current node.
      */
-    T *operator->() const;
+    value_type *operator->() const;
 
     /**
      * @brief Pre-increment operator.
