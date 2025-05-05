@@ -1,7 +1,6 @@
 #pragma once
 #include "abstract_queue.hpp"
-//TODO: change std::list with own implementation doubly_linked_list
-#include <list>
+#include "doubly_linked_list.hpp"
 
 namespace containers::sequential{
     
@@ -34,7 +33,7 @@ namespace containers::sequential{
         const T& back() const override;
 
         private:
-        std::list<T> m_list;
+        doubly_linked_list m_list;
     };
 }
 
