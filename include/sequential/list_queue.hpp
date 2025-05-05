@@ -33,7 +33,7 @@ namespace containers::sequential{
         const T& back() const override;
 
         private:
-        doubly_linked_list m_list;
+        doubly_linked_list<T> m_list;
     };
 }
 
