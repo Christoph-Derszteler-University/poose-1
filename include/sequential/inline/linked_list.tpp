@@ -1,4 +1,6 @@
 #include <memory>
+#include <sequential/invalid_node.hpp>
+#include <sequential/empty_container.hpp>
 
 namespace containers::sequential {
 
@@ -27,7 +29,7 @@ template <typename Type> void linked_list<Type>::push_front(Type val) {
 template <typename Type>
 linked_list<Type>::node_t linked_list<Type>::erase_after(node_t pos) {
   if (pos == nullptr || pos->next == nullptr) {
-    return nullptr;
+    throw invalid_node();
   }
 
   pos->next = pos->next->next;
@@ -39,7 +41,7 @@ template <typename Type>
 linked_list<Type>::node_t linked_list<Type>::insert_after(node_t pos,
                                                           Type val) {
   if (pos == nullptr) {
-    return nullptr;
+    throw invalid_node();
   }
 
   const auto after = std::make_shared<node>(val);
@@ -53,7 +55,7 @@ linked_list<Type>::node_t linked_list<Type>::insert_after(node_t pos,
 
 template <typename Type> void linked_list<Type>::pop_front() {
   if (head == nullptr) {
-    return;
+    throw empty_container();
   }
   head = head->next;
   container::number_elements--;
