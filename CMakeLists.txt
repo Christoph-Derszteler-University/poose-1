@@ -38,7 +38,12 @@ add_executable(hash_multi_set_example examples/associative/hash_multi_set_exampl
 function(add_benchmark name source)
   add_executable(${name}_benchmark ${source} benchmarks/benchmark.cpp ${SRC_FILES})
   target_include_directories(${name}_benchmark PRIVATE benchmarks)
+  if (WIN32)
+    target_link_libraries(${name}_benchmark PRIVATE "-Wl,--stack,8589934592") # Increases stack size to 1GB
+  endif()
 endfunction()
+
+add_benchmark(hash_map benchmarks/associative/hash_map_benchmark.cpp)
 
 # Tests
 
