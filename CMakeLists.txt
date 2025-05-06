@@ -73,3 +73,6 @@ target_link_libraries(stack_test GTest::gtest_main)
 add_executable(queue_test tests/sequential/queue_test.cpp ${SRC_FILES})
 target_link_libraries(queue_test GTest::gtest_main)
 gtest_discover_tests(queue_test)
+add_executable(linked_list_test tests/sequential/linked_list_test.cpp ${SRC_FILES})
+target_link_libraries(linked_list_test GTest::gtest_main)
+gtest_discover_tests(linked_list_test) # TODO: doubly
