@@ -1,3 +1,5 @@
+#include "sequential/priority_queue.hpp"
+
 namespace containers::sequential {
 
 template <typename T> priority_queue<T>::priority_queue() = default;
