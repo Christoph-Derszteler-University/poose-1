@@ -75,7 +75,6 @@ protected:
 template <typename T> 
 class priority_queue : public abstract_priority_queue<T> {
 private:
-  using heap_node = typename abstract_priority_queue<T>::heap_node;
   using heap_node_t = typename abstract_priority_queue<T>::heap_node_t;
 
   heap_node_t root; ///< Pointer to the root of the priority queue.
