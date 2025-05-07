@@ -15,7 +15,7 @@ namespace containers::sequential {
  */
 template <typename T> 
 class abstract_priority_queue : public container {
-public:
+protected:
   /**
    * @brief protected struct for nodes in the priority queue
    */
