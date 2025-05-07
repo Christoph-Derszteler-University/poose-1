@@ -3,14 +3,21 @@
 #include <iostream>
 #include <format>
 
-void containers::benchmark::print_benchmark(const std::function<void()>& action, const std::string& name) {
+void containers::benchmark::print_benchmark(
+  const std::function<void()>& action,
+  const std::string& name,
+  const std::string& action_name,
+  const int& size
+) {
   const auto duration = benchmark_action(action);
   const int microseconds = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
   std::cout << std::format(
-    "{} took {:d} ({:e}) microseconds",
+    "[{}] {} took {:d} ({:e}) microseconds for size {:d}.",
     name,
+    action_name,
     microseconds,
-    static_cast<double>(microseconds)
+    static_cast<double>(microseconds),
+    size
   ) << std::endl;
 }
 
