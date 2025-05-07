@@ -19,29 +19,14 @@ void priority_queue<T>::push(const T &value) {
     }
 
     // 3) Broad-First-Search the first free place
-    containers::sequential::list_queue<std::shared_ptr<heap_node>> queue;
-    queue.enqueue(root);
+    auto parent = find_insertation_parent();
 
-    while (!queue.empty()) {
-        auto current = queue.front();
-        queue.dequeue(); 
-
-        if (!current->left) {
-            current->left = new_node;
-            new_node->parent = current;
-            break;
-        } else {
-            queue.enqueue(current->left);
-        }
-
-        if (!current->right) {
-            current->right = new_node;
-            new_node->parent = current;
-            break;
-        } else {
-            queue.enqueue(current->right);
-        }
+    if (!parent->left) {
+      parent->left = new_node;
+    } else {
+      parent->right = new_node;
     }
+    new_node->parent = parent;
 
     // 4) Heapify-Up for the newly added node
     heapify_up(new_node);
@@ -141,6 +126,25 @@ void priority_queue<T>::heapify_down(std::shared_ptr<typename abstract_priority_
     }
   }
 }
+template <typename T>
+typename priority_queue<T>::heap_node_t
+priority_queue<T>::find_insertation_parent() {
+  containers::sequential::list_queue<typename priority_queue<T>::heap_node_t> queue;
+  queue.enqueue(root);
+
+  while (!queue.empty()) {
+      auto current = queue.front();
+      queue.dequeue(); 
+
+      if (!current->left || !current->right) {
+              return current;
+      }
+          queue.enqueue(current->left);
+          queue.enqueue(current->right);
+      }
+      return nullptr;
+  }
+
 template<typename T>
 inline containers::sequential::abstract_priority_queue<T>::heap_node::heap_node(const T& value) : data(value){}
 

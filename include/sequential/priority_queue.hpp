@@ -107,6 +107,12 @@ private:
    * @param index The index from which to start the heapify down process.
    */
   void heapify_down(std::shared_ptr<typename abstract_priority_queue<T>::heap_node> node);
+
+  /**
+   * @brief Helper function for push, finds the first node without to children
+   * @return Parent node for insertation
+   */
+  heap_node_t find_insertation_parent();
 };
 
 } // namespace containers::sequential
