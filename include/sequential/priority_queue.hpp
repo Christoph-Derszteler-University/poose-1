@@ -113,6 +113,12 @@ private:
    * @return Parent node for insertation
    */
   heap_node_t find_insertation_parent();
+
+  /**
+   * 
+   * 
+   */
+  heap_node_t find_last_node();
 };
 
 } // namespace containers::sequential

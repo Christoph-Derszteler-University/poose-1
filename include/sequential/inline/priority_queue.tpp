@@ -46,28 +46,8 @@ void priority_queue<T>::pop() {
     container::number_elements--;
     return;
   }
-
-  // bfs for the last node
-  list_queue<node_ptr> queue;
-  queue.enqueue(root);
-
-  node_ptr last;
-  node_ptr parent_of_last;
-
-  while (!queue.empty()) {
-    auto current = queue.front();
-    queue.dequeue();
-    last = current;
-
-    if (current->left) {
-      parent_of_last = current;
-      queue.enqueue(current->left);
-    }
-    if (current->right) {
-      parent_of_last = current;
-      queue.enqueue(current->right);
-    }
-  }
+  auto last = find_last_node();
+  auto parent_of_last = last->parent.lock();
 
   // Change root and last data
   std::swap(root->data, last->data);
@@ -144,6 +124,28 @@ priority_queue<T>::find_insertation_parent() {
       }
       return nullptr;
   }
+
+template<typename T>
+typename priority_queue<T>::heap_node_t priority_queue<T>::find_last_node() {
+  list_queue<typename priority_queue<T>::heap_node_t> queue;
+  queue.enqueue(root);
+
+  typename priority_queue<T>::heap_node_t last;
+
+  while (!queue.empty()) {
+    auto current = queue.front();
+    queue.dequeue();
+    last = current;
+
+    if (current->left) {
+      queue.enqueue(current->left);
+    }
+    if (current->right) {
+      queue.enqueue(current->right);
+    }
+  }
+  return last;
+}
 
 template<typename T>
 inline containers::sequential::abstract_priority_queue<T>::heap_node::heap_node(const T& value) : data(value){}
