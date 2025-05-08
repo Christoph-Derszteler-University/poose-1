@@ -40,7 +40,7 @@ void benchmark_pq_pop(int size) {
 }
 
 int main() {
-  // Optional: parallel zu Map-Benchmarks
+  // Parallel benchmark testing to reduce time
   std::thread t1([]{ containers::benchmark::benchmark_with_different_sizes(benchmark_pq_push, N_SIZES); });
   std::thread t2([]{ containers::benchmark::benchmark_with_different_sizes(benchmark_pq_pop, N_SIZES); });
   t1.join();
