@@ -116,7 +116,8 @@ private:
 
   /**
    * 
-   * 
+   * @brief Helper function for finding the least prioritised node in the max heap;
+   * @return least priority node
    */
   heap_node_t find_last_node();
 };
