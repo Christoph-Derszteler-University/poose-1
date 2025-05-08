@@ -43,7 +43,7 @@ function(add_benchmark name source)
   endif()
 endfunction()
 
-add_benchmark(hash_map benchmarks/associative/hash_map_benchmark.cpp)
+add_benchmark(hash_map benchmarks/associative/hash_map/hash_map_benchmark.cpp)
 
 # Tests
 
