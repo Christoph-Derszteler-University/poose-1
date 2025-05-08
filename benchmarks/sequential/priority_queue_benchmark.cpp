@@ -12,7 +12,9 @@ void benchmark_pq_push(int size) {
   std::vector<int> data(size);
   std::mt19937_64 rng(123);
   std::uniform_int_distribution<int> dist(0, size);
-  for (auto& x : data) x = dist(rng);
+  for (auto& x : data) {
+    x = dist(rng);
+  }
 
   // Measure insertation into the PQ
   containers::benchmark::print_benchmark([&](){
