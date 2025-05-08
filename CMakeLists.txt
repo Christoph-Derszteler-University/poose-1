@@ -41,6 +41,8 @@ function(add_benchmark name source)
   target_include_directories(${name}_benchmark PRIVATE benchmarks)
 endfunction()
 
+add_benchmark(priority_queue benchmarks/sequential/priority_queue_benchmark.cpp)
+
 # Tests
 
 include(FetchContent)
