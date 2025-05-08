@@ -44,6 +44,7 @@ function(add_benchmark name source)
 endfunction()
 
 add_benchmark(hash_map benchmarks/associative/hash_map/hash_map_benchmark.cpp)
+add_benchmark(hash_multi_set benchmarks/associative/hash_multi_set/hash_multi_set_benchmark.cpp)
 
 # Tests
 
