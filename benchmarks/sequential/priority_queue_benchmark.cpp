@@ -1,6 +1,7 @@
 #include <vector>
 #include <random>
 #include <thread>
+#include <queue>
 
 #include "sequential/priority_queue.hpp"
 #include "benchmark.hpp"
@@ -23,22 +24,36 @@ void benchmark_pq_push(int size) {
       pq.push(v);
     }
   }, "priority_queue", "push", size);
+  containers::benchmark::print_benchmark([&](){
+    std::priority_queue<int> stdpq;
+    for (int v : data) {
+      stdpq.push(v);
+    }
+  }, "std_priority_queue", "push", size);
 }
+
 
 void benchmark_pq_pop(int size) {
   // Initialize PQ with an amount of "size" values for testing
   std::vector<int> data(size);
   std::iota(data.begin(), data.end(), 0);
   containers::sequential::priority_queue<int> pq;
+  std::priority_queue<int> stdpq;
   for (int v : data) {
     pq.push(v);
+    stdpq.push(v);
   }
-  // Benchmark
+  // Benchmarks
   containers::benchmark::print_benchmark([&](){
     while (!pq.empty()) {
       pq.pop();
     }
   }, "priority_queue", "pop", size);
+  containers::benchmark::print_benchmark([&](){
+    while (!stdpq.empty()) {
+      stdpq.pop();
+    }
+  }, "std_priority_queue", "pop", size);
 }
 
 int main() {
