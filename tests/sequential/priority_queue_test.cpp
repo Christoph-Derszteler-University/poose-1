@@ -9,7 +9,7 @@ class priority_queue_test : public testing::Test {
     
       priority_queue_t queue;
     
-      priority_queue_test() : priority_queue() {}
+      priority_queue_test() : queue() {}
 
       // 2042006 -> 69 -> 42
       void SetUp() override {
@@ -24,12 +24,12 @@ TEST_F(priority_queue_test, CorrectContainerSize){
 }
 TEST_F(priority_queue_test, DataIsInsertedCorrectly){
     queue.push(45);
-    EXPECT_EQ(queue.back(), 42);
+    EXPECT_EQ(queue.top(), 2042006);
 }
 
 TEST_F(priority_queue_test, DataIsDeletedCorrectly){
-    const auto& tmp = queue.top();
-    EXPECT_EQ(tmp, 2042006);
+    queue.pop();
+    EXPECT_EQ(queue.top(), 69);
     EXPECT_EQ(queue.size(), 2);
     EXPECT_FALSE(queue.empty());
 }
@@ -40,6 +40,6 @@ TEST_F(priority_queue_test, QueueIsEmptyCorrectBehaviour){
     queue.pop();
 
     EXPECT_TRUE(queue.empty());
-    ASSERT_THROW(queue.pop(), containers::sequential::empty_container);
+    ASSERT_THROW(queue.pop(), std::out_of_range);
     ASSERT_THROW(queue.top(), std::out_of_range);
 }
