@@ -1,4 +1,4 @@
-**NOTE: This is just an uploaded version of the GitLab repository in the GitLab server internal to the university. Therefore, Wiki pages, Issues, etc. are not copied. **
+**NOTE: This is just an uploaded version of the GitLab repository in the GitLab server internal to the university. Therefore, Wiki pages, Issues, etc. are not copied.**
 
 # Development
 
